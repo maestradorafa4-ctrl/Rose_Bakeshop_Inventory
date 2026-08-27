@@ -1,37 +1,49 @@
 # 🌹 Rose Bakeshop Inventory Management System
 
-A simple web-based inventory management system developed for Rose Bakeshop using Google Apps Script and Google Sheets.
+## 📌 Description
 
-## 📌 Project Description
+The Rose Bakeshop Inventory Management System is a web-based application developed to help manage bakery products and monitor inventory levels.
 
-The Rose Bakeshop Inventory Management System is designed to help manage and monitor bakery products and their available stock.
+The system uses Google Apps Script as the application backend and Google Sheets as the database.
 
-The system replaces manual inventory monitoring with a centralized digital inventory system.
+---
+
+## 🚀 Live System
+
+### Open the Rose Bakeshop Inventory System
+
+https://script.google.com/macros/s/AKfycbxURFu1vtyXAnQNt3-wg2gjq11BvEeSMfxHYV5CbtsJtiaF-OAASVeJJJi2onc4WZIUAw/exec
+
+---
 
 ## ✨ Features
 
-- View inventory dashboard
-- Add bakery products
-- Edit existing products
-- Delete products
-- Search products
-- Product categorization
-- Quantity tracking
-- Price tracking
-- Automatic stock status
-- Low-stock monitoring
-- Out-of-stock monitoring
-- Automatic product ID generation
-- Google Sheets database
-- Responsive web interface
+- Dashboard
+- Add Product
+- Edit Product
+- Delete Product
+- Search Product
+- Product Categories
+- Quantity Management
+- Price Management
+- Automatic Stock Status
+- Low Stock Monitoring
+- Out of Stock Monitoring
+- Automatic Product ID
+- Google Sheets Database
+- Responsive Design
+
+---
 
 ## 🛠️ Technologies Used
 
 - Google Apps Script
-- HTML
-- CSS
-- JavaScript
 - Google Sheets
+- HTML5
+- CSS3
+- JavaScript
+
+---
 
 ## 📂 Project Structure
 
