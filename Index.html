@@ -4,20 +4,33 @@
 
 <head>
 
-  <base target="_top">
+  <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>Rose Bakeshop Inventory</title>
+  <title>
+    Rose Bakeshop Inventory
+  </title>
 
 
   <style>
 
     * {
-      box-sizing: border-box;
+
       margin: 0;
+
       padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
+
+      box-sizing: border-box;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     }
 
 
@@ -32,9 +45,7 @@
     }
 
 
-    /* =========================
-       HEADER
-       ========================= */
+    /* HEADER */
 
     .header {
 
@@ -44,13 +55,9 @@
 
       padding: 18px 35px;
 
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+      box-shadow:
+        0 2px 8px
+        rgba(0,0,0,.12);
 
     }
 
@@ -66,15 +73,13 @@
     }
 
 
-    .brand-icon {
+    .logo {
 
       width: 48px;
 
       height: 48px;
 
       background: white;
-
-      color: #b86f7b;
 
       border-radius: 50%;
 
@@ -102,16 +107,14 @@
 
       font-size: 13px;
 
-      opacity: .9;
-
       margin-top: 3px;
+
+      opacity: .9;
 
     }
 
 
-    /* =========================
-       MAIN
-       ========================= */
+    /* MAIN */
 
     .container {
 
@@ -135,8 +138,6 @@
 
       font-size: 30px;
 
-      color: #4d3636;
-
       margin-bottom: 5px;
 
     }
@@ -151,9 +152,7 @@
     }
 
 
-    /* =========================
-       DASHBOARD CARDS
-       ========================= */
+    /* CARDS */
 
     .cards {
 
@@ -173,97 +172,55 @@
 
       background: white;
 
-      border-radius: 14px;
-
       padding: 22px;
 
+      border-radius: 14px;
+
       box-shadow:
-        0 4px 15px rgba(0,0,0,.07);
+        0 4px 15px
+        rgba(0,0,0,.07);
 
-      border: 1px solid #f1e5e2;
-
-    }
-
-
-    .card-top {
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
+      border:
+        1px solid #f1e5e2;
 
     }
 
 
     .card-title {
 
-      font-size: 14px;
-
       color: #8b7474;
 
-    }
-
-
-    .card-icon {
-
-      width: 38px;
-
-      height: 38px;
-
-      border-radius: 10px;
-
-      background: #fff0ee;
-
-      color: #b86f7b;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-size: 19px;
+      font-size: 14px;
 
     }
 
 
     .card-number {
 
-      font-size: 29px;
+      color: #b86f7b;
+
+      font-size: 30px;
 
       font-weight: bold;
 
-      color: #b86f7b;
-
-      margin-top: 13px;
+      margin-top: 12px;
 
     }
 
 
-    .inventory-value {
-
-      font-size: 18px;
-
-    }
-
-
-    /* =========================
-       INVENTORY PANEL
-       ========================= */
+    /* INVENTORY */
 
     .inventory-panel {
 
       background: white;
 
-      border-radius: 14px;
-
       padding: 25px;
 
-      box-shadow:
-        0 4px 15px rgba(0,0,0,.07);
+      border-radius: 14px;
 
-      border: 1px solid #f1e5e2;
+      box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.07);
 
     }
 
@@ -272,13 +229,14 @@
 
       display: flex;
 
-      justify-content: space-between;
+      justify-content:
+        space-between;
 
       align-items: center;
 
-      margin-bottom: 20px;
-
       gap: 15px;
+
+      margin-bottom: 20px;
 
     }
 
@@ -287,62 +245,38 @@
 
       font-size: 21px;
 
-      color: #4d3636;
-
     }
 
 
-    .inventory-actions {
+    .actions {
 
       display: flex;
-
-      align-items: center;
 
       gap: 10px;
 
     }
 
 
-    .search-box {
-
-      position: relative;
-
-    }
-
-
-    .search-box input {
+    .search {
 
       width: 240px;
 
-      padding: 11px 13px 11px 38px;
+      padding: 11px;
 
-      border: 1px solid #ded2d0;
+      border:
+        1px solid #ddd;
 
       border-radius: 8px;
 
       outline: none;
 
-      font-size: 14px;
-
     }
 
 
-    .search-box input:focus {
+    .search:focus {
 
-      border-color: #b86f7b;
-
-    }
-
-
-    .search-icon {
-
-      position: absolute;
-
-      left: 13px;
-
-      top: 11px;
-
-      color: #a58c8c;
+      border-color:
+        #b86f7b;
 
     }
 
@@ -351,38 +285,37 @@
 
       border: none;
 
+      border-radius: 8px;
+
       cursor: pointer;
 
       font-weight: bold;
 
-      border-radius: 8px;
-
-      transition: .2s;
-
     }
 
 
-    .add-button {
+    .add-btn {
 
-      padding: 11px 18px;
-
-      background: #b86f7b;
+      background:
+        #b86f7b;
 
       color: white;
 
-    }
-
-
-    .add-button:hover {
-
-      background: #9f5b67;
+      padding:
+        11px 18px;
 
     }
 
 
-    /* =========================
-       TABLE
-       ========================= */
+    .add-btn:hover {
+
+      background:
+        #9f5b67;
+
+    }
+
+
+    /* TABLE */
 
     .table-wrapper {
 
@@ -397,7 +330,8 @@
 
       width: 100%;
 
-      border-collapse: collapse;
+      border-collapse:
+        collapse;
 
       min-width: 850px;
 
@@ -406,17 +340,16 @@
 
     th {
 
-      background: #fff3f0;
-
-      color: #674b4b;
-
-      font-size: 13px;
-
-      text-align: left;
+      background:
+        #fff3f0;
 
       padding: 14px;
 
-      border-bottom: 1px solid #eadfdd;
+      text-align: left;
+
+      font-size: 13px;
+
+      color: #674b4b;
 
     }
 
@@ -425,18 +358,18 @@
 
       padding: 14px;
 
-      border-bottom: 1px solid #f0e8e6;
+      border-bottom:
+        1px solid #eee;
 
       font-size: 14px;
-
-      vertical-align: middle;
 
     }
 
 
-    tbody tr:hover {
+    tr:hover {
 
-      background: #fffaf8;
+      background:
+        #fffaf8;
 
     }
 
@@ -445,8 +378,6 @@
 
       font-weight: bold;
 
-      color: #4d3636;
-
     }
 
 
@@ -454,7 +385,9 @@
 
       color: #9a8585;
 
-      font-size: 12px;
+      font-size: 11px;
+
+      margin-top: 3px;
 
     }
 
@@ -466,17 +399,18 @@
     }
 
 
-    /* =========================
-       STATUS
-       ========================= */
+    /* STATUS */
 
     .status {
 
-      display: inline-block;
+      display:
+        inline-block;
 
-      padding: 6px 11px;
+      padding:
+        6px 11px;
 
-      border-radius: 20px;
+      border-radius:
+        20px;
 
       font-size: 12px;
 
@@ -487,84 +421,78 @@
 
     .available {
 
-      background: #e5f6e9;
+      background:
+        #e5f6e9;
 
-      color: #307945;
-
-    }
-
-
-    .low-stock {
-
-      background: #fff1c9;
-
-      color: #917000;
+      color:
+        #307945;
 
     }
 
 
-    .out-stock {
+    .low {
 
-      background: #ffe1e1;
+      background:
+        #fff1c9;
 
-      color: #a23939;
+      color:
+        #917000;
 
     }
 
 
-    /* =========================
-       ACTION BUTTONS
-       ========================= */
+    .out {
 
-    .edit-button {
+      background:
+        #ffe1e1;
 
-      background: #f1e0e4;
+      color:
+        #a23939;
 
-      color: #7d4e57;
+    }
 
-      padding: 7px 11px;
+
+    /* ACTIONS */
+
+    .edit-btn {
+
+      background:
+        #f1e0e4;
+
+      color:
+        #7d4e57;
+
+      padding:
+        7px 11px;
 
       margin-right: 5px;
 
     }
 
 
-    .edit-button:hover {
+    .delete-btn {
 
-      background: #e7d1d6;
+      background:
+        #ffe5e5;
 
-    }
+      color:
+        #a33e3e;
 
-
-    .delete-button {
-
-      background: #ffe5e5;
-
-      color: #a33e3e;
-
-      padding: 7px 11px;
+      padding:
+        7px 11px;
 
     }
 
 
-    .delete-button:hover {
-
-      background: #ffd5d5;
-
-    }
-
-
-    /* =========================
-       EMPTY STATE
-       ========================= */
+    /* EMPTY */
 
     .empty {
 
       text-align: center;
 
-      padding: 55px 20px;
+      padding: 50px;
 
-      color: #9b8989;
+      color: #999;
 
     }
 
@@ -573,31 +501,18 @@
 
       font-size: 45px;
 
-      margin-bottom: 12px;
+      margin-bottom: 10px;
 
     }
 
 
-    .empty h3 {
-
-      color: #665151;
-
-      margin-bottom: 6px;
-
-    }
-
-
-    /* =========================
-       MODAL
-       ========================= */
+    /* MODAL */
 
     .modal {
 
       display: none;
 
       position: fixed;
-
-      z-index: 999;
 
       left: 0;
 
@@ -608,7 +523,9 @@
       height: 100%;
 
       background:
-        rgba(54, 35, 35, .55);
+        rgba(0,0,0,.5);
+
+      z-index: 1000;
 
       padding: 20px;
 
@@ -617,7 +534,7 @@
 
     .modal-content {
 
-      width: 440px;
+      width: 430px;
 
       max-width: 100%;
 
@@ -627,33 +544,7 @@
 
       padding: 28px;
 
-      border-radius: 15px;
-
-      box-shadow:
-        0 10px 40px rgba(0,0,0,.2);
-
-      animation: modalOpen .2s ease;
-
-    }
-
-
-    @keyframes modalOpen {
-
-      from {
-
-        transform: translateY(-15px);
-
-        opacity: 0;
-
-      }
-
-      to {
-
-        transform: translateY(0);
-
-        opacity: 1;
-
-      }
+      border-radius: 14px;
 
     }
 
@@ -662,11 +553,10 @@
 
       display: flex;
 
-      justify-content: space-between;
+      justify-content:
+        space-between;
 
-      align-items: center;
-
-      margin-bottom: 22px;
+      margin-bottom: 20px;
 
     }
 
@@ -675,25 +565,16 @@
 
       font-size: 22px;
 
-      color: #4d3636;
-
     }
 
 
     .close {
 
-      font-size: 25px;
+      font-size: 26px;
 
-      color: #998585;
+      color: #999;
 
       cursor: pointer;
-
-    }
-
-
-    .close:hover {
-
-      color: #4d3636;
 
     }
 
@@ -709,13 +590,11 @@
 
       display: block;
 
-      margin-bottom: 7px;
+      margin-bottom: 6px;
 
       font-size: 13px;
 
       font-weight: bold;
-
-      color: #654d4d;
 
     }
 
@@ -726,17 +605,14 @@
 
       width: 100%;
 
-      padding: 11px 12px;
+      padding: 11px;
 
-      border: 1px solid #ded2d0;
+      border:
+        1px solid #ddd;
 
       border-radius: 8px;
 
       outline: none;
-
-      font-size: 14px;
-
-      background: white;
 
     }
 
@@ -745,7 +621,8 @@
 
     .form-group select:focus {
 
-      border-color: #b86f7b;
+      border-color:
+        #b86f7b;
 
     }
 
@@ -754,47 +631,56 @@
 
       display: flex;
 
-      justify-content: flex-end;
+      justify-content:
+        flex-end;
 
       gap: 10px;
 
-      margin-top: 22px;
+      margin-top: 20px;
 
     }
 
 
-    .cancel-button {
+    .cancel-btn {
 
-      background: #eeeeee;
+      padding:
+        11px 18px;
+
+      background:
+        #eee;
 
       color: #555;
 
-      padding: 11px 18px;
-
     }
 
 
-    .save-button {
+    .save-btn {
 
-      background: #b86f7b;
+      padding:
+        11px 20px;
+
+      background:
+        #b86f7b;
 
       color: white;
 
-      padding: 11px 20px;
+    }
+
+
+    /* LOADING */
+
+    .loading {
+
+      text-align: center;
+
+      padding: 50px;
+
+      color: #999;
 
     }
 
 
-    .save-button:hover {
-
-      background: #9f5b67;
-
-    }
-
-
-    /* =========================
-       TOAST
-       ========================= */
+    /* TOAST */
 
     .toast {
 
@@ -804,22 +690,19 @@
 
       bottom: 25px;
 
-      background: #4d3636;
+      background:
+        #493535;
 
       color: white;
 
-      padding: 14px 20px;
+      padding:
+        14px 20px;
 
       border-radius: 8px;
 
       display: none;
 
       z-index: 2000;
-
-      box-shadow:
-        0 5px 20px rgba(0,0,0,.2);
-
-      font-size: 14px;
 
     }
 
@@ -828,82 +711,10 @@
 
       display: block;
 
-      animation: toastIn .2s ease;
-
     }
 
 
-    @keyframes toastIn {
-
-      from {
-
-        opacity: 0;
-
-        transform: translateY(10px);
-
-      }
-
-      to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-      }
-
-    }
-
-
-    /* =========================
-       LOADING
-       ========================= */
-
-    .loading {
-
-      text-align: center;
-
-      padding: 50px;
-
-      color: #998585;
-
-    }
-
-
-    .spinner {
-
-      display: inline-block;
-
-      width: 28px;
-
-      height: 28px;
-
-      border: 3px solid #ead9d9;
-
-      border-top-color: #b86f7b;
-
-      border-radius: 50%;
-
-      animation: spin .8s linear infinite;
-
-      margin-bottom: 10px;
-
-    }
-
-
-    @keyframes spin {
-
-      to {
-
-        transform: rotate(360deg);
-
-      }
-
-    }
-
-
-    /* =========================
-       RESPONSIVE
-       ========================= */
+    /* RESPONSIVE */
 
     @media(max-width: 1000px) {
 
@@ -919,55 +730,26 @@
 
     @media(max-width: 700px) {
 
-      .header {
-
-        padding: 15px 20px;
-
-      }
-
-
-      .brand-name {
-
-        font-size: 20px;
-
-      }
-
-
-      .container {
-
-        margin-top: 20px;
-
-        padding: 0 12px;
-
-      }
-
-
       .inventory-header {
 
-        flex-direction: column;
+        flex-direction:
+          column;
 
-        align-items: stretch;
-
-      }
-
-
-      .inventory-actions {
-
-        flex-direction: column;
-
-        align-items: stretch;
+        align-items:
+          stretch;
 
       }
 
 
-      .search-box input {
+      .actions {
 
-        width: 100%;
+        flex-direction:
+          column;
 
       }
 
 
-      .add-button {
+      .search {
 
         width: 100%;
 
@@ -980,14 +762,15 @@
 
       .cards {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          1fr;
 
       }
 
+      .container {
 
-      .modal-content {
-
-        margin-top: 10%;
+        padding:
+          0 10px;
 
       }
 
@@ -1007,7 +790,7 @@
 
     <div class="brand">
 
-      <div class="brand-icon">
+      <div class="logo">
         🌹
       </div>
 
@@ -1041,30 +824,22 @@
       </h1>
 
       <p>
-        Manage and monitor your bakery products and stock levels.
+        Manage and monitor your bakery products and stock.
       </p>
 
     </div>
 
 
 
-    <!-- DASHBOARD -->
+    <!-- DASHBOARD CARDS -->
 
-    <section class="cards">
+    <div class="cards">
 
 
       <div class="card">
 
-        <div class="card-top">
-
-          <div class="card-title">
-            Total Products
-          </div>
-
-          <div class="card-icon">
-            🧁
-          </div>
-
+        <div class="card-title">
+          Total Products
         </div>
 
         <div
@@ -1076,19 +851,10 @@
       </div>
 
 
-
       <div class="card">
 
-        <div class="card-top">
-
-          <div class="card-title">
-            Total Items
-          </div>
-
-          <div class="card-icon">
-            📦
-          </div>
-
+        <div class="card-title">
+          Total Items
         </div>
 
         <div
@@ -1100,19 +866,10 @@
       </div>
 
 
-
       <div class="card">
 
-        <div class="card-top">
-
-          <div class="card-title">
-            Low Stock
-          </div>
-
-          <div class="card-icon">
-            ⚠️
-          </div>
-
+        <div class="card-title">
+          Low Stock
         </div>
 
         <div
@@ -1124,19 +881,10 @@
       </div>
 
 
-
       <div class="card">
 
-        <div class="card-top">
-
-          <div class="card-title">
-            Out of Stock
-          </div>
-
-          <div class="card-icon">
-            ❌
-          </div>
-
+        <div class="card-title">
+          Out of Stock
         </div>
 
         <div
@@ -1148,7 +896,7 @@
       </div>
 
 
-    </section>
+    </div>
 
 
 
@@ -1164,33 +912,24 @@
         </h2>
 
 
-        <div class="inventory-actions">
+        <div class="actions">
 
-
-          <div class="search-box">
-
-            <span class="search-icon">
-              🔍
-            </span>
-
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Search products..."
-              oninput="filterProducts()"
-            >
-
-          </div>
+          <input
+            class="search"
+            id="searchInput"
+            type="text"
+            placeholder="Search products..."
+            oninput="searchProducts()"
+          >
 
 
           <button
-            class="add-button"
+            class="add-btn"
             onclick="openAddModal()">
 
             + Add Product
 
           </button>
-
 
         </div>
 
@@ -1198,20 +937,12 @@
 
 
 
-      <!-- TABLE -->
-
       <div
         class="table-wrapper"
         id="tableContainer">
 
         <div class="loading">
-
-          <div class="spinner"></div>
-
-          <br>
-
           Loading inventory...
-
         </div>
 
       </div>
@@ -1243,7 +974,9 @@
         <span
           class="close"
           onclick="closeModal()">
+
           &times;
+
         </span>
 
       </div>
@@ -1348,7 +1081,7 @@
       <div class="modal-buttons">
 
         <button
-          class="cancel-button"
+          class="cancel-btn"
           onclick="closeModal()">
 
           Cancel
@@ -1357,7 +1090,7 @@
 
 
         <button
-          class="save-button"
+          class="save-btn"
           onclick="saveProduct()">
 
           Save Product
@@ -1379,7 +1112,7 @@
     class="toast"
     id="toast">
 
-    Product saved successfully.
+    Saved successfully.
 
   </div>
 
@@ -1392,31 +1125,35 @@
 
 
 
-    /* =========================
-       LOAD PRODUCTS
-       ========================= */
+    /* LOAD */
 
     function loadProducts() {
 
       google.script.run
 
-        .withSuccessHandler(function(data) {
+        .withSuccessHandler(
+          function(data) {
 
-          products = data || [];
+            products = data || [];
 
-          displayProducts(products);
+            displayProducts(
+              products
+            );
 
-          loadDashboard();
+            loadDashboard();
 
-        })
+          }
+        )
 
-        .withFailureHandler(function(error) {
+        .withFailureHandler(
+          function(error) {
 
-          showToast(
-            "Error: " + error.message
-          );
+            alert(
+              error.message
+            );
 
-        })
+          }
+        )
 
         .getProducts();
 
@@ -1424,9 +1161,7 @@
 
 
 
-    /* =========================
-       DISPLAY PRODUCTS
-       ========================= */
+    /* DISPLAY */
 
     function displayProducts(data) {
 
@@ -1436,7 +1171,10 @@
         );
 
 
-      if (!data || data.length === 0) {
+      if (
+        !data ||
+        data.length === 0
+      ) {
 
         container.innerHTML = `
 
@@ -1451,7 +1189,7 @@
             </h3>
 
             <p>
-              Add your first bakery product to the inventory.
+              Add your first bakery product.
             </p>
 
           </div>
@@ -1471,33 +1209,19 @@
 
             <tr>
 
-              <th>
-                PRODUCT
-              </th>
+              <th>PRODUCT</th>
 
-              <th>
-                CATEGORY
-              </th>
+              <th>CATEGORY</th>
 
-              <th>
-                QUANTITY
-              </th>
+              <th>QUANTITY</th>
 
-              <th>
-                PRICE
-              </th>
+              <th>PRICE</th>
 
-              <th>
-                STATUS
-              </th>
+              <th>STATUS</th>
 
-              <th>
-                DATE ADDED
-              </th>
+              <th>DATE ADDED</th>
 
-              <th>
-                ACTIONS
-              </th>
+              <th>ACTIONS</th>
 
             </tr>
 
@@ -1508,107 +1232,136 @@
       `;
 
 
-      data.forEach(function(product) {
+      data.forEach(
+        function(product) {
 
 
-        let statusClass = "available";
+          let statusClass =
+            "available";
 
 
-        if (
-          product.status ===
-          "Low Stock"
-        ) {
+          if (
+            product.status ===
+            "Low Stock"
+          ) {
 
-          statusClass = "low-stock";
+            statusClass =
+              "low";
+
+          }
+
+
+          if (
+            product.status ===
+            "Out of Stock"
+          ) {
+
+            statusClass =
+              "out";
+
+          }
+
+
+          html += `
+
+            <tr>
+
+              <td>
+
+                <div class="product-name">
+
+                  ${escapeHTML(
+                    product.name
+                  )}
+
+                </div>
+
+                <div class="product-id">
+
+                  ${escapeHTML(
+                    product.id
+                  )}
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                ${escapeHTML(
+                  product.category
+                )}
+
+              </td>
+
+
+              <td>
+
+                ${product.quantity}
+
+              </td>
+
+
+              <td class="price">
+
+                ₱${Number(
+                  product.price
+                ).toFixed(2)}
+
+              </td>
+
+
+              <td>
+
+                <span
+                  class="status ${statusClass}">
+
+                  ${escapeHTML(
+                    product.status
+                  )}
+
+                </span>
+
+              </td>
+
+
+              <td>
+
+                ${escapeHTML(
+                  product.date
+                )}
+
+              </td>
+
+
+              <td>
+
+                <button
+                  class="edit-btn"
+                  onclick="editProduct('${escapeJS(product.id)}')">
+
+                  Edit
+
+                </button>
+
+
+                <button
+                  class="delete-btn"
+                  onclick="deleteProduct('${escapeJS(product.id)}')">
+
+                  Delete
+
+                </button>
+
+              </td>
+
+            </tr>
+
+          `;
 
         }
-
-
-        if (
-          product.status ===
-          "Out of Stock"
-        ) {
-
-          statusClass = "out-stock";
-
-        }
-
-
-        html += `
-
-          <tr>
-
-            <td>
-
-              <div class="product-name">
-                ${escapeHTML(product.name)}
-              </div>
-
-              <div class="product-id">
-                ${escapeHTML(product.id)}
-              </div>
-
-            </td>
-
-
-            <td>
-              ${escapeHTML(product.category)}
-            </td>
-
-
-            <td>
-              ${product.quantity}
-            </td>
-
-
-            <td class="price">
-              ₱${Number(product.price).toFixed(2)}
-            </td>
-
-
-            <td>
-
-              <span
-                class="status ${statusClass}">
-
-                ${escapeHTML(product.status)}
-
-              </span>
-
-            </td>
-
-
-            <td>
-              ${escapeHTML(product.date)}
-            </td>
-
-
-            <td>
-
-              <button
-                class="edit-button"
-                onclick="openEditModal('${escapeJS(product.id)}')">
-
-                Edit
-
-              </button>
-
-
-              <button
-                class="delete-button"
-                onclick="deleteProduct('${escapeJS(product.id)}')">
-
-                Delete
-
-              </button>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      });
+      );
 
 
       html += `
@@ -1620,52 +1373,47 @@
       `;
 
 
-      container.innerHTML = html;
+      container.innerHTML =
+        html;
 
     }
 
 
 
-    /* =========================
-       DASHBOARD
-       ========================= */
+    /* DASHBOARD */
 
     function loadDashboard() {
 
       google.script.run
 
-        .withSuccessHandler(function(data) {
+        .withSuccessHandler(
+          function(data) {
 
-          document.getElementById(
-            "totalProducts"
-          ).textContent =
-            data.totalProducts;
-
-
-          document.getElementById(
-            "totalItems"
-          ).textContent =
-            data.totalItems;
+            document.getElementById(
+              "totalProducts"
+            ).textContent =
+              data.totalProducts;
 
 
-          document.getElementById(
-            "lowStock"
-          ).textContent =
-            data.lowStock;
+            document.getElementById(
+              "totalItems"
+            ).textContent =
+              data.totalItems;
 
 
-          document.getElementById(
-            "outOfStock"
-          ).textContent =
-            data.outOfStock;
+            document.getElementById(
+              "lowStock"
+            ).textContent =
+              data.lowStock;
 
-        })
 
-        .withFailureHandler(function(error) {
+            document.getElementById(
+              "outOfStock"
+            ).textContent =
+              data.outOfStock;
 
-          console.log(error);
-
-        })
+          }
+        )
 
         .getDashboardData();
 
@@ -1673,23 +1421,24 @@
 
 
 
-    /* =========================
-       SEARCH
-       ========================= */
+    /* SEARCH */
 
-    function filterProducts() {
+    function searchProducts() {
 
       const search =
         document.getElementById(
           "searchInput"
-        ).value
+        )
+        .value
         .toLowerCase()
         .trim();
 
 
       if (!search) {
 
-        displayProducts(products);
+        displayProducts(
+          products
+        );
 
         return;
 
@@ -1697,46 +1446,48 @@
 
 
       const filtered =
-        products.filter(function(product) {
+        products.filter(
+          function(product) {
 
-          return (
+            return (
 
-            product.name
-              .toLowerCase()
-              .includes(search)
+              product.name
+                .toLowerCase()
+                .includes(search)
 
-            ||
+              ||
 
-            product.category
-              .toLowerCase()
-              .includes(search)
+              product.category
+                .toLowerCase()
+                .includes(search)
 
-            ||
+              ||
 
-            product.status
-              .toLowerCase()
-              .includes(search)
+              product.status
+                .toLowerCase()
+                .includes(search)
 
-            ||
+              ||
 
-            product.id
-              .toLowerCase()
-              .includes(search)
+              product.id
+                .toLowerCase()
+                .includes(search)
 
-          );
+            );
 
-        });
+          }
+        );
 
 
-      displayProducts(filtered);
+      displayProducts(
+        filtered
+      );
 
     }
 
 
 
-    /* =========================
-       ADD MODAL
-       ========================= */
+    /* ADD */
 
     function openAddModal() {
 
@@ -1773,35 +1524,32 @@
 
       document.getElementById(
         "productModal"
-      ).style.display = "block";
-
-
-      document.getElementById(
-        "productName"
-      ).focus();
+      ).style.display =
+        "block";
 
     }
 
 
 
-    /* =========================
-       EDIT MODAL
-       ========================= */
+    /* EDIT */
 
-    function openEditModal(id) {
+    function editProduct(id) {
 
       const product =
-        products.find(function(item) {
+        products.find(
+          function(item) {
 
-          return String(item.id) ===
-            String(id);
+            return String(
+              item.id
+            ) === String(id);
 
-        });
+          }
+        );
 
 
       if (!product) {
 
-        showToast(
+        alert(
           "Product not found."
         );
 
@@ -1855,9 +1603,7 @@
 
 
 
-    /* =========================
-       SAVE PRODUCT
-       ========================= */
+    /* SAVE */
 
     function saveProduct() {
 
@@ -1894,7 +1640,7 @@
       if (!name) {
 
         alert(
-          "Please enter the product name."
+          "Please enter a product name."
         );
 
         return;
@@ -1949,9 +1695,11 @@
 
         category: category,
 
-        quantity: Number(quantity),
+        quantity:
+          Number(quantity),
 
-        price: Number(price)
+        price:
+          Number(price)
 
       };
 
@@ -1960,27 +1708,33 @@
 
         google.script.run
 
-          .withSuccessHandler(function(result) {
+          .withSuccessHandler(
+            function(result) {
 
-            showToast(
-              result.message
-            );
+              showToast(
+                result.message
+              );
 
-            closeModal();
+              closeModal();
 
-            loadProducts();
+              loadProducts();
 
-          })
+            }
+          )
 
-          .withFailureHandler(function(error) {
+          .withFailureHandler(
+            function(error) {
 
-            alert(
-              error.message
-            );
+              alert(
+                error.message
+              );
 
-          })
+            }
+          )
 
-          .updateProduct(product);
+          .updateProduct(
+            product
+          );
 
       }
 
@@ -1988,27 +1742,33 @@
 
         google.script.run
 
-          .withSuccessHandler(function(result) {
+          .withSuccessHandler(
+            function(result) {
 
-            showToast(
-              result.message
-            );
+              showToast(
+                result.message
+              );
 
-            closeModal();
+              closeModal();
 
-            loadProducts();
+              loadProducts();
 
-          })
+            }
+          )
 
-          .withFailureHandler(function(error) {
+          .withFailureHandler(
+            function(error) {
 
-            alert(
-              error.message
-            );
+              alert(
+                error.message
+              );
 
-          })
+            }
+          )
 
-          .addProduct(product);
+          .addProduct(
+            product
+          );
 
       }
 
@@ -2016,19 +1776,20 @@
 
 
 
-    /* =========================
-       DELETE PRODUCT
-       ========================= */
+    /* DELETE */
 
     function deleteProduct(id) {
 
       const product =
-        products.find(function(item) {
+        products.find(
+          function(item) {
 
-          return String(item.id) ===
-            String(id);
+            return String(
+              item.id
+            ) === String(id);
 
-        });
+          }
+        );
 
 
       if (!product) {
@@ -2045,49 +1806,53 @@
       const confirmed =
         confirm(
 
-          "Are you sure you want to delete " +
-
+          "Delete " +
           product.name +
-
           "?"
 
         );
 
 
       if (!confirmed) {
+
         return;
+
       }
 
 
       google.script.run
 
-        .withSuccessHandler(function(result) {
+        .withSuccessHandler(
+          function(result) {
 
-          showToast(
-            result.message
-          );
+            showToast(
+              result.message
+            );
 
-          loadProducts();
+            loadProducts();
 
-        })
+          }
+        )
 
-        .withFailureHandler(function(error) {
+        .withFailureHandler(
+          function(error) {
 
-          alert(
-            error.message
-          );
+            alert(
+              error.message
+            );
 
-        })
+          }
+        )
 
-        .deleteProduct(id);
+        .deleteProduct(
+          id
+        );
 
     }
 
 
 
-    /* =========================
-       CLOSE MODAL
-       ========================= */
+    /* CLOSE MODAL */
 
     function closeModal() {
 
@@ -2100,9 +1865,7 @@
 
 
 
-    /* =========================
-       TOAST
-       ========================= */
+    /* TOAST */
 
     function showToast(message) {
 
@@ -2121,21 +1884,22 @@
       );
 
 
-      setTimeout(function() {
+      setTimeout(
+        function() {
 
-        toast.classList.remove(
-          "show"
-        );
+          toast.classList.remove(
+            "show"
+          );
 
-      }, 3000);
+        },
+        3000
+      );
 
     }
 
 
 
-    /* =========================
-       ESCAPE HTML
-       ========================= */
+    /* ESCAPE HTML */
 
     function escapeHTML(value) {
 
@@ -2157,9 +1921,7 @@
 
 
 
-    /* =========================
-       ESCAPE JAVASCRIPT
-       ========================= */
+    /* ESCAPE JAVASCRIPT */
 
     function escapeJS(value) {
 
@@ -2173,20 +1935,13 @@
         .replace(
           /'/g,
           "\\'"
-        )
-
-        .replace(
-          /"/g,
-          '\\"'
         );
 
     }
 
 
 
-    /* =========================
-       CLOSE MODAL OUTSIDE
-       ========================= */
+    /* CLOSE OUTSIDE MODAL */
 
     window.onclick =
       function(event) {
@@ -2209,9 +1964,7 @@
 
 
 
-    /* =========================
-       ESC KEY
-       ========================= */
+    /* ESC KEY */
 
     document.addEventListener(
       "keydown",
@@ -2230,31 +1983,12 @@
 
 
 
-    /* =========================
-       INITIALIZE
-       ========================= */
+    /* START */
 
     window.onload =
       function() {
 
-        google.script.run
-
-          .withSuccessHandler(function() {
-
-            loadProducts();
-
-          })
-
-          .withFailureHandler(function(error) {
-
-            alert(
-              "System Error: " +
-              error.message
-            );
-
-          })
-
-          .initializeSystem();
+        loadProducts();
 
       };
 
