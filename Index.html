@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
@@ -15,768 +14,10 @@
     Rose Bakeshop Inventory
   </title>
 
-
-  <style>
-
-    * {
-
-      margin: 0;
-
-      padding: 0;
-
-      box-sizing: border-box;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    }
-
-
-    body {
-
-      background: #fff8f5;
-
-      color: #493535;
-
-      min-height: 100vh;
-
-    }
-
-
-    /* HEADER */
-
-    .header {
-
-      background: #b86f7b;
-
-      color: white;
-
-      padding: 18px 35px;
-
-      box-shadow:
-        0 2px 8px
-        rgba(0,0,0,.12);
-
-    }
-
-
-    .brand {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-    }
-
-
-    .logo {
-
-      width: 48px;
-
-      height: 48px;
-
-      background: white;
-
-      border-radius: 50%;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-size: 25px;
-
-    }
-
-
-    .brand-name {
-
-      font-size: 24px;
-
-      font-weight: bold;
-
-    }
-
-
-    .brand-subtitle {
-
-      font-size: 13px;
-
-      margin-top: 3px;
-
-      opacity: .9;
-
-    }
-
-
-    /* MAIN */
-
-    .container {
-
-      max-width: 1250px;
-
-      margin: 30px auto;
-
-      padding: 0 20px;
-
-    }
-
-
-    .page-title {
-
-      margin-bottom: 25px;
-
-    }
-
-
-    .page-title h1 {
-
-      font-size: 30px;
-
-      margin-bottom: 5px;
-
-    }
-
-
-    .page-title p {
-
-      color: #8a7373;
-
-      font-size: 14px;
-
-    }
-
-
-    /* CARDS */
-
-    .cards {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 18px;
-
-      margin-bottom: 25px;
-
-    }
-
-
-    .card {
-
-      background: white;
-
-      padding: 22px;
-
-      border-radius: 14px;
-
-      box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.07);
-
-      border:
-        1px solid #f1e5e2;
-
-    }
-
-
-    .card-title {
-
-      color: #8b7474;
-
-      font-size: 14px;
-
-    }
-
-
-    .card-number {
-
-      color: #b86f7b;
-
-      font-size: 30px;
-
-      font-weight: bold;
-
-      margin-top: 12px;
-
-    }
-
-
-    /* INVENTORY */
-
-    .inventory-panel {
-
-      background: white;
-
-      padding: 25px;
-
-      border-radius: 14px;
-
-      box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.07);
-
-    }
-
-
-    .inventory-header {
-
-      display: flex;
-
-      justify-content:
-        space-between;
-
-      align-items: center;
-
-      gap: 15px;
-
-      margin-bottom: 20px;
-
-    }
-
-
-    .inventory-header h2 {
-
-      font-size: 21px;
-
-    }
-
-
-    .actions {
-
-      display: flex;
-
-      gap: 10px;
-
-    }
-
-
-    .search {
-
-      width: 240px;
-
-      padding: 11px;
-
-      border:
-        1px solid #ddd;
-
-      border-radius: 8px;
-
-      outline: none;
-
-    }
-
-
-    .search:focus {
-
-      border-color:
-        #b86f7b;
-
-    }
-
-
-    button {
-
-      border: none;
-
-      border-radius: 8px;
-
-      cursor: pointer;
-
-      font-weight: bold;
-
-    }
-
-
-    .add-btn {
-
-      background:
-        #b86f7b;
-
-      color: white;
-
-      padding:
-        11px 18px;
-
-    }
-
-
-    .add-btn:hover {
-
-      background:
-        #9f5b67;
-
-    }
-
-
-    /* TABLE */
-
-    .table-wrapper {
-
-      width: 100%;
-
-      overflow-x: auto;
-
-    }
-
-
-    table {
-
-      width: 100%;
-
-      border-collapse:
-        collapse;
-
-      min-width: 850px;
-
-    }
-
-
-    th {
-
-      background:
-        #fff3f0;
-
-      padding: 14px;
-
-      text-align: left;
-
-      font-size: 13px;
-
-      color: #674b4b;
-
-    }
-
-
-    td {
-
-      padding: 14px;
-
-      border-bottom:
-        1px solid #eee;
-
-      font-size: 14px;
-
-    }
-
-
-    tr:hover {
-
-      background:
-        #fffaf8;
-
-    }
-
-
-    .product-name {
-
-      font-weight: bold;
-
-    }
-
-
-    .product-id {
-
-      color: #9a8585;
-
-      font-size: 11px;
-
-      margin-top: 3px;
-
-    }
-
-
-    .price {
-
-      font-weight: bold;
-
-    }
-
-
-    /* STATUS */
-
-    .status {
-
-      display:
-        inline-block;
-
-      padding:
-        6px 11px;
-
-      border-radius:
-        20px;
-
-      font-size: 12px;
-
-      font-weight: bold;
-
-    }
-
-
-    .available {
-
-      background:
-        #e5f6e9;
-
-      color:
-        #307945;
-
-    }
-
-
-    .low {
-
-      background:
-        #fff1c9;
-
-      color:
-        #917000;
-
-    }
-
-
-    .out {
-
-      background:
-        #ffe1e1;
-
-      color:
-        #a23939;
-
-    }
-
-
-    /* ACTIONS */
-
-    .edit-btn {
-
-      background:
-        #f1e0e4;
-
-      color:
-        #7d4e57;
-
-      padding:
-        7px 11px;
-
-      margin-right: 5px;
-
-    }
-
-
-    .delete-btn {
-
-      background:
-        #ffe5e5;
-
-      color:
-        #a33e3e;
-
-      padding:
-        7px 11px;
-
-    }
-
-
-    /* EMPTY */
-
-    .empty {
-
-      text-align: center;
-
-      padding: 50px;
-
-      color: #999;
-
-    }
-
-
-    .empty-icon {
-
-      font-size: 45px;
-
-      margin-bottom: 10px;
-
-    }
-
-
-    /* MODAL */
-
-    .modal {
-
-      display: none;
-
-      position: fixed;
-
-      left: 0;
-
-      top: 0;
-
-      width: 100%;
-
-      height: 100%;
-
-      background:
-        rgba(0,0,0,.5);
-
-      z-index: 1000;
-
-      padding: 20px;
-
-    }
-
-
-    .modal-content {
-
-      width: 430px;
-
-      max-width: 100%;
-
-      background: white;
-
-      margin: 5% auto;
-
-      padding: 28px;
-
-      border-radius: 14px;
-
-    }
-
-
-    .modal-header {
-
-      display: flex;
-
-      justify-content:
-        space-between;
-
-      margin-bottom: 20px;
-
-    }
-
-
-    .modal-header h2 {
-
-      font-size: 22px;
-
-    }
-
-
-    .close {
-
-      font-size: 26px;
-
-      color: #999;
-
-      cursor: pointer;
-
-    }
-
-
-    .form-group {
-
-      margin-bottom: 16px;
-
-    }
-
-
-    .form-group label {
-
-      display: block;
-
-      margin-bottom: 6px;
-
-      font-size: 13px;
-
-      font-weight: bold;
-
-    }
-
-
-    .form-group input,
-
-    .form-group select {
-
-      width: 100%;
-
-      padding: 11px;
-
-      border:
-        1px solid #ddd;
-
-      border-radius: 8px;
-
-      outline: none;
-
-    }
-
-
-    .form-group input:focus,
-
-    .form-group select:focus {
-
-      border-color:
-        #b86f7b;
-
-    }
-
-
-    .modal-buttons {
-
-      display: flex;
-
-      justify-content:
-        flex-end;
-
-      gap: 10px;
-
-      margin-top: 20px;
-
-    }
-
-
-    .cancel-btn {
-
-      padding:
-        11px 18px;
-
-      background:
-        #eee;
-
-      color: #555;
-
-    }
-
-
-    .save-btn {
-
-      padding:
-        11px 20px;
-
-      background:
-        #b86f7b;
-
-      color: white;
-
-    }
-
-
-    /* LOADING */
-
-    .loading {
-
-      text-align: center;
-
-      padding: 50px;
-
-      color: #999;
-
-    }
-
-
-    /* TOAST */
-
-    .toast {
-
-      position: fixed;
-
-      right: 25px;
-
-      bottom: 25px;
-
-      background:
-        #493535;
-
-      color: white;
-
-      padding:
-        14px 20px;
-
-      border-radius: 8px;
-
-      display: none;
-
-      z-index: 2000;
-
-    }
-
-
-    .toast.show {
-
-      display: block;
-
-    }
-
-
-    /* RESPONSIVE */
-
-    @media(max-width: 1000px) {
-
-      .cards {
-
-        grid-template-columns:
-          repeat(2, 1fr);
-
-      }
-
-    }
-
-
-    @media(max-width: 700px) {
-
-      .inventory-header {
-
-        flex-direction:
-          column;
-
-        align-items:
-          stretch;
-
-      }
-
-
-      .actions {
-
-        flex-direction:
-          column;
-
-      }
-
-
-      .search {
-
-        width: 100%;
-
-      }
-
-    }
-
-
-    @media(max-width: 500px) {
-
-      .cards {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-      .container {
-
-        padding:
-          0 10px;
-
-      }
-
-    }
-
-  </style>
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
 
@@ -784,1216 +25,346 @@
 <body>
 
 
-  <!-- HEADER -->
+<header class="header">
 
-  <header class="header">
+  <div class="brand">
 
-    <div class="brand">
+    <div class="logo">
+      🌹
+    </div>
 
-      <div class="logo">
-        🌹
+    <div>
+
+      <div class="brand-name">
+        Rose Bakeshop
       </div>
+
+      <div class="brand-subtitle">
+        Inventory Management System
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+  <div class="page-title">
+
+    <h1>
+      Inventory Dashboard
+    </h1>
+
+    <p>
+      Manage and monitor your bakery products and stock.
+    </p>
+
+  </div>
+
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <div class="card-title">
+        Total Products
+      </div>
+
+      <div
+        class="card-number"
+        id="totalProducts">
+
+        0
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        Total Items
+      </div>
+
+      <div
+        class="card-number"
+        id="totalItems">
+
+        0
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        Low Stock
+      </div>
+
+      <div
+        class="card-number"
+        id="lowStock">
+
+        0
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        Out of Stock
+      </div>
+
+      <div
+        class="card-number"
+        id="outOfStock">
+
+        0
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+  <section class="inventory-panel">
+
+
+    <div class="inventory-header">
 
       <div>
-
-        <div class="brand-name">
-          Rose Bakeshop
-        </div>
-
-        <div class="brand-subtitle">
-          Inventory Management System
-        </div>
-
-      </div>
-
-    </div>
-
-  </header>
-
-
-
-  <!-- MAIN -->
-
-  <main class="container">
-
-
-    <div class="page-title">
-
-      <h1>
-        Inventory Dashboard
-      </h1>
-
-      <p>
-        Manage and monitor your bakery products and stock.
-      </p>
-
-    </div>
-
-
-
-    <!-- DASHBOARD CARDS -->
-
-    <div class="cards">
-
-
-      <div class="card">
-
-        <div class="card-title">
-          Total Products
-        </div>
-
-        <div
-          class="card-number"
-          id="totalProducts">
-          0
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-title">
-          Total Items
-        </div>
-
-        <div
-          class="card-number"
-          id="totalItems">
-          0
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-title">
-          Low Stock
-        </div>
-
-        <div
-          class="card-number"
-          id="lowStock">
-          0
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-title">
-          Out of Stock
-        </div>
-
-        <div
-          class="card-number"
-          id="outOfStock">
-          0
-        </div>
-
-      </div>
-
-
-    </div>
-
-
-
-    <!-- INVENTORY -->
-
-    <section class="inventory-panel">
-
-
-      <div class="inventory-header">
 
         <h2>
           Product Inventory
         </h2>
 
-
-        <div class="actions">
-
-          <input
-            class="search"
-            id="searchInput"
-            type="text"
-            placeholder="Search products..."
-            oninput="searchProducts()"
-          >
-
-
-          <button
-            class="add-btn"
-            onclick="openAddModal()">
-
-            + Add Product
-
-          </button>
-
-        </div>
+        <p class="small-text">
+          Manage your bakery products.
+        </p>
 
       </div>
 
 
-
-      <div
-        class="table-wrapper"
-        id="tableContainer">
-
-        <div class="loading">
-          Loading inventory...
-        </div>
-
-      </div>
-
-
-    </section>
-
-
-  </main>
-
-
-
-  <!-- MODAL -->
-
-  <div
-    class="modal"
-    id="productModal">
-
-
-    <div class="modal-content">
-
-
-      <div class="modal-header">
-
-        <h2 id="modalTitle">
-          Add Product
-        </h2>
-
-        <span
-          class="close"
-          onclick="closeModal()">
-
-          &times;
-
-        </span>
-
-      </div>
-
-
-      <input
-        type="hidden"
-        id="productId"
-      >
-
-
-      <div class="form-group">
-
-        <label>
-          Product Name
-        </label>
+      <div class="actions">
 
         <input
           type="text"
-          id="productName"
-          placeholder="Example: Chocolate Cake"
+          id="searchInput"
+          class="search"
+          placeholder="Search products..."
         >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Category
-        </label>
-
-        <select id="category">
-
-          <option value="">
-            Select Category
-          </option>
-
-          <option value="Cake">
-            Cake
-          </option>
-
-          <option value="Bread">
-            Bread
-          </option>
-
-          <option value="Pastry">
-            Pastry
-          </option>
-
-          <option value="Cookies">
-            Cookies
-          </option>
-
-          <option value="Donut">
-            Donut
-          </option>
-
-          <option value="Other">
-            Other
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Quantity
-        </label>
-
-        <input
-          type="number"
-          id="quantity"
-          min="0"
-          step="1"
-          placeholder="Enter quantity"
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Price (₱)
-        </label>
-
-        <input
-          type="number"
-          id="price"
-          min="0"
-          step="0.01"
-          placeholder="Enter price"
-        >
-
-      </div>
-
-
-      <div class="modal-buttons">
-
-        <button
-          class="cancel-btn"
-          onclick="closeModal()">
-
-          Cancel
-
-        </button>
 
 
         <button
-          class="save-btn"
-          onclick="saveProduct()">
+          class="add-btn"
+          onclick="openAddModal()">
 
-          Save Product
+          + Add Product
 
         </button>
 
       </div>
-
 
     </div>
 
+
+
+    <div
+      id="tableContainer"
+      class="table-wrapper">
+
+      <div class="loading">
+        Loading inventory...
+      </div>
+
+    </div>
+
+
+  </section>
+
+
+</main>
+
+
+
+<div
+  id="productModal"
+  class="modal">
+
+
+  <div class="modal-content">
+
+
+    <div class="modal-header">
+
+      <h2 id="modalTitle">
+        Add Product
+      </h2>
+
+
+      <span
+        class="close"
+        onclick="closeModal()">
+
+        &times;
+
+      </span>
+
+    </div>
+
+
+
+    <input
+      type="hidden"
+      id="productId"
+    >
+
+
+    <div class="form-group">
+
+      <label>
+        Product Name
+      </label>
+
+      <input
+        type="text"
+        id="productName"
+        placeholder="Example: Chocolate Cake"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Category
+      </label>
+
+      <select id="category">
+
+        <option value="">
+          Select Category
+        </option>
+
+        <option value="Cake">
+          Cake
+        </option>
+
+        <option value="Bread">
+          Bread
+        </option>
+
+        <option value="Pastry">
+          Pastry
+        </option>
+
+        <option value="Cookies">
+          Cookies
+        </option>
+
+        <option value="Donut">
+          Donut
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Quantity
+      </label>
+
+      <input
+        type="number"
+        id="quantity"
+        min="0"
+        placeholder="Enter quantity"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Price (₱)
+      </label>
+
+      <input
+        type="number"
+        id="price"
+        min="0"
+        step="0.01"
+        placeholder="Enter price"
+      >
+
+    </div>
+
+
+    <div class="modal-buttons">
+
+      <button
+        class="cancel-btn"
+        onclick="closeModal()">
+
+        Cancel
+
+      </button>
+
+
+      <button
+        class="save-btn"
+        onclick="saveProduct()">
+
+        Save Product
+
+      </button>
+
+    </div>
+
+
   </div>
 
+</div>
 
 
-  <!-- TOAST -->
 
-  <div
-    class="toast"
-    id="toast">
+<div
+  id="toast"
+  class="toast">
 
-    Saved successfully.
+  Saved successfully.
 
-  </div>
+</div>
 
 
 
-  <script>
+<script src="script.js"></script>
 
-
-    let products = [];
-
-
-
-    /* LOAD */
-
-    function loadProducts() {
-
-      google.script.run
-
-        .withSuccessHandler(
-          function(data) {
-
-            products = data || [];
-
-            displayProducts(
-              products
-            );
-
-            loadDashboard();
-
-          }
-        )
-
-        .withFailureHandler(
-          function(error) {
-
-            alert(
-              error.message
-            );
-
-          }
-        )
-
-        .getProducts();
-
-    }
-
-
-
-    /* DISPLAY */
-
-    function displayProducts(data) {
-
-      const container =
-        document.getElementById(
-          "tableContainer"
-        );
-
-
-      if (
-        !data ||
-        data.length === 0
-      ) {
-
-        container.innerHTML = `
-
-          <div class="empty">
-
-            <div class="empty-icon">
-              🧁
-            </div>
-
-            <h3>
-              No Products Found
-            </h3>
-
-            <p>
-              Add your first bakery product.
-            </p>
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      let html = `
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>PRODUCT</th>
-
-              <th>CATEGORY</th>
-
-              <th>QUANTITY</th>
-
-              <th>PRICE</th>
-
-              <th>STATUS</th>
-
-              <th>DATE ADDED</th>
-
-              <th>ACTIONS</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-      `;
-
-
-      data.forEach(
-        function(product) {
-
-
-          let statusClass =
-            "available";
-
-
-          if (
-            product.status ===
-            "Low Stock"
-          ) {
-
-            statusClass =
-              "low";
-
-          }
-
-
-          if (
-            product.status ===
-            "Out of Stock"
-          ) {
-
-            statusClass =
-              "out";
-
-          }
-
-
-          html += `
-
-            <tr>
-
-              <td>
-
-                <div class="product-name">
-
-                  ${escapeHTML(
-                    product.name
-                  )}
-
-                </div>
-
-                <div class="product-id">
-
-                  ${escapeHTML(
-                    product.id
-                  )}
-
-                </div>
-
-              </td>
-
-
-              <td>
-
-                ${escapeHTML(
-                  product.category
-                )}
-
-              </td>
-
-
-              <td>
-
-                ${product.quantity}
-
-              </td>
-
-
-              <td class="price">
-
-                ₱${Number(
-                  product.price
-                ).toFixed(2)}
-
-              </td>
-
-
-              <td>
-
-                <span
-                  class="status ${statusClass}">
-
-                  ${escapeHTML(
-                    product.status
-                  )}
-
-                </span>
-
-              </td>
-
-
-              <td>
-
-                ${escapeHTML(
-                  product.date
-                )}
-
-              </td>
-
-
-              <td>
-
-                <button
-                  class="edit-btn"
-                  onclick="editProduct('${escapeJS(product.id)}')">
-
-                  Edit
-
-                </button>
-
-
-                <button
-                  class="delete-btn"
-                  onclick="deleteProduct('${escapeJS(product.id)}')">
-
-                  Delete
-
-                </button>
-
-              </td>
-
-            </tr>
-
-          `;
-
-        }
-      );
-
-
-      html += `
-
-          </tbody>
-
-        </table>
-
-      `;
-
-
-      container.innerHTML =
-        html;
-
-    }
-
-
-
-    /* DASHBOARD */
-
-    function loadDashboard() {
-
-      google.script.run
-
-        .withSuccessHandler(
-          function(data) {
-
-            document.getElementById(
-              "totalProducts"
-            ).textContent =
-              data.totalProducts;
-
-
-            document.getElementById(
-              "totalItems"
-            ).textContent =
-              data.totalItems;
-
-
-            document.getElementById(
-              "lowStock"
-            ).textContent =
-              data.lowStock;
-
-
-            document.getElementById(
-              "outOfStock"
-            ).textContent =
-              data.outOfStock;
-
-          }
-        )
-
-        .getDashboardData();
-
-    }
-
-
-
-    /* SEARCH */
-
-    function searchProducts() {
-
-      const search =
-        document.getElementById(
-          "searchInput"
-        )
-        .value
-        .toLowerCase()
-        .trim();
-
-
-      if (!search) {
-
-        displayProducts(
-          products
-        );
-
-        return;
-
-      }
-
-
-      const filtered =
-        products.filter(
-          function(product) {
-
-            return (
-
-              product.name
-                .toLowerCase()
-                .includes(search)
-
-              ||
-
-              product.category
-                .toLowerCase()
-                .includes(search)
-
-              ||
-
-              product.status
-                .toLowerCase()
-                .includes(search)
-
-              ||
-
-              product.id
-                .toLowerCase()
-                .includes(search)
-
-            );
-
-          }
-        );
-
-
-      displayProducts(
-        filtered
-      );
-
-    }
-
-
-
-    /* ADD */
-
-    function openAddModal() {
-
-      document.getElementById(
-        "modalTitle"
-      ).textContent =
-        "Add Product";
-
-
-      document.getElementById(
-        "productId"
-      ).value = "";
-
-
-      document.getElementById(
-        "productName"
-      ).value = "";
-
-
-      document.getElementById(
-        "category"
-      ).value = "";
-
-
-      document.getElementById(
-        "quantity"
-      ).value = "";
-
-
-      document.getElementById(
-        "price"
-      ).value = "";
-
-
-      document.getElementById(
-        "productModal"
-      ).style.display =
-        "block";
-
-    }
-
-
-
-    /* EDIT */
-
-    function editProduct(id) {
-
-      const product =
-        products.find(
-          function(item) {
-
-            return String(
-              item.id
-            ) === String(id);
-
-          }
-        );
-
-
-      if (!product) {
-
-        alert(
-          "Product not found."
-        );
-
-        return;
-
-      }
-
-
-      document.getElementById(
-        "modalTitle"
-      ).textContent =
-        "Edit Product";
-
-
-      document.getElementById(
-        "productId"
-      ).value =
-        product.id;
-
-
-      document.getElementById(
-        "productName"
-      ).value =
-        product.name;
-
-
-      document.getElementById(
-        "category"
-      ).value =
-        product.category;
-
-
-      document.getElementById(
-        "quantity"
-      ).value =
-        product.quantity;
-
-
-      document.getElementById(
-        "price"
-      ).value =
-        product.price;
-
-
-      document.getElementById(
-        "productModal"
-      ).style.display =
-        "block";
-
-    }
-
-
-
-    /* SAVE */
-
-    function saveProduct() {
-
-      const id =
-        document.getElementById(
-          "productId"
-        ).value;
-
-
-      const name =
-        document.getElementById(
-          "productName"
-        ).value.trim();
-
-
-      const category =
-        document.getElementById(
-          "category"
-        ).value;
-
-
-      const quantity =
-        document.getElementById(
-          "quantity"
-        ).value;
-
-
-      const price =
-        document.getElementById(
-          "price"
-        ).value;
-
-
-      if (!name) {
-
-        alert(
-          "Please enter a product name."
-        );
-
-        return;
-
-      }
-
-
-      if (!category) {
-
-        alert(
-          "Please select a category."
-        );
-
-        return;
-
-      }
-
-
-      if (
-        quantity === "" ||
-        Number(quantity) < 0
-      ) {
-
-        alert(
-          "Please enter a valid quantity."
-        );
-
-        return;
-
-      }
-
-
-      if (
-        price === "" ||
-        Number(price) < 0
-      ) {
-
-        alert(
-          "Please enter a valid price."
-        );
-
-        return;
-
-      }
-
-
-      const product = {
-
-        id: id,
-
-        name: name,
-
-        category: category,
-
-        quantity:
-          Number(quantity),
-
-        price:
-          Number(price)
-
-      };
-
-
-      if (id) {
-
-        google.script.run
-
-          .withSuccessHandler(
-            function(result) {
-
-              showToast(
-                result.message
-              );
-
-              closeModal();
-
-              loadProducts();
-
-            }
-          )
-
-          .withFailureHandler(
-            function(error) {
-
-              alert(
-                error.message
-              );
-
-            }
-          )
-
-          .updateProduct(
-            product
-          );
-
-      }
-
-      else {
-
-        google.script.run
-
-          .withSuccessHandler(
-            function(result) {
-
-              showToast(
-                result.message
-              );
-
-              closeModal();
-
-              loadProducts();
-
-            }
-          )
-
-          .withFailureHandler(
-            function(error) {
-
-              alert(
-                error.message
-              );
-
-            }
-          )
-
-          .addProduct(
-            product
-          );
-
-      }
-
-    }
-
-
-
-    /* DELETE */
-
-    function deleteProduct(id) {
-
-      const product =
-        products.find(
-          function(item) {
-
-            return String(
-              item.id
-            ) === String(id);
-
-          }
-        );
-
-
-      if (!product) {
-
-        alert(
-          "Product not found."
-        );
-
-        return;
-
-      }
-
-
-      const confirmed =
-        confirm(
-
-          "Delete " +
-          product.name +
-          "?"
-
-        );
-
-
-      if (!confirmed) {
-
-        return;
-
-      }
-
-
-      google.script.run
-
-        .withSuccessHandler(
-          function(result) {
-
-            showToast(
-              result.message
-            );
-
-            loadProducts();
-
-          }
-        )
-
-        .withFailureHandler(
-          function(error) {
-
-            alert(
-              error.message
-            );
-
-          }
-        )
-
-        .deleteProduct(
-          id
-        );
-
-    }
-
-
-
-    /* CLOSE MODAL */
-
-    function closeModal() {
-
-      document.getElementById(
-        "productModal"
-      ).style.display =
-        "none";
-
-    }
-
-
-
-    /* TOAST */
-
-    function showToast(message) {
-
-      const toast =
-        document.getElementById(
-          "toast"
-        );
-
-
-      toast.textContent =
-        message;
-
-
-      toast.classList.add(
-        "show"
-      );
-
-
-      setTimeout(
-        function() {
-
-          toast.classList.remove(
-            "show"
-          );
-
-        },
-        3000
-      );
-
-    }
-
-
-
-    /* ESCAPE HTML */
-
-    function escapeHTML(value) {
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-
-      div.textContent =
-        value == null
-          ? ""
-          : value;
-
-
-      return div.innerHTML;
-
-    }
-
-
-
-    /* ESCAPE JAVASCRIPT */
-
-    function escapeJS(value) {
-
-      return String(value)
-
-        .replace(
-          /\\/g,
-          "\\\\"
-        )
-
-        .replace(
-          /'/g,
-          "\\'"
-        );
-
-    }
-
-
-
-    /* CLOSE OUTSIDE MODAL */
-
-    window.onclick =
-      function(event) {
-
-        const modal =
-          document.getElementById(
-            "productModal"
-          );
-
-
-        if (
-          event.target === modal
-        ) {
-
-          closeModal();
-
-        }
-
-      };
-
-
-
-    /* ESC KEY */
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (
-          event.key === "Escape"
-        ) {
-
-          closeModal();
-
-        }
-
-      }
-    );
-
-
-
-    /* START */
-
-    window.onload =
-      function() {
-
-        loadProducts();
-
-      };
-
-
-  </script>
 
 </body>
 
