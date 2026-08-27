@@ -1,1 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Rose Bakeshop Inventory Management System"
+    >
+
+    <title>Rose Bakeshop - Inventory Management</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                🌹
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    Rose Bakeshop
+                </div>
+
+                <div class="brand-subtitle">
+                    Inventory Management System
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================
+         MAIN CONTENT
+    ================================= -->
+
+    <main class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h1>
+                Inventory Dashboard
+            </h1>
+
+            <p>
+                Manage and monitor your bakery products and stock.
+            </p>
+
+        </div>
+
+
+        <!-- ================================
+             DASHBOARD CARDS
+        ================================= -->
+
+        <div class="cards">
+
+
+            <!-- TOTAL PRODUCTS -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Total Products
+                </div>
+
+                <div
+                    class="card-number"
+                    id="totalProducts">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL ITEMS -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Total Items
+                </div>
+
+                <div
+                    class="card-number"
+                    id="totalItems">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <!-- LOW STOCK -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Low Stock
+                </div>
+
+                <div
+                    class="card-number"
+                    id="lowStock">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <!-- OUT OF STOCK -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Out of Stock
+                </div>
+
+                <div
+                    class="card-number"
+                    id="outOfStock">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================================
+             INVENTORY SECTION
+        ================================= -->
+
+        <section class="inventory-panel">
+
+
+            <!-- INVENTORY HEADER -->
+
+            <div class="inventory-header">
+
+
+                <div>
+
+                    <h2>
+                        Product Inventory
+                    </h2>
+
+                    <p class="small-text">
+                        Manage your Rose Bakeshop products.
+                    </p>
+
+                </div>
+
+
+                <div class="actions">
+
+
+                    <!-- SEARCH -->
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="search"
+                        placeholder="Search products..."
+                        autocomplete="off"
+                    >
+
+
+                    <!-- ADD PRODUCT -->
+
+                    <button
+                        type="button"
+                        class="add-btn"
+                        onclick="openAddModal()">
+
+                        + Add Product
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================================
+                 PRODUCT TABLE
+            ================================= -->
+
+            <div
+                id="tableContainer"
+                class="table-wrapper">
+
+                <div class="loading">
+
+                    Loading inventory...
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================================
+         ADD / EDIT PRODUCT MODAL
+    ================================= -->
+
+    <div
+        id="productModal"
+        class="modal">
+
+
+        <div class="modal-content">
+
+
+            <!-- MODAL HEADER -->
+
+            <div class="modal-header">
+
+
+                <h2 id="modalTitle">
+                    Add Product
+                </h2>
+
+
+                <span
+                    class="close"
+                    onclick="closeModal()">
+
+                    &times;
+
+                </span>
+
+
+            </div>
+
+
+            <!-- HIDDEN PRODUCT ID -->
+
+            <input
+                type="hidden"
+                id="productId"
+            >
+
+
+            <!-- PRODUCT NAME -->
+
+            <div class="form-group">
+
+                <label for="productName">
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Example: Chocolate Cake"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select id="category">
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Cake">
+                        Cake
+                    </option>
+
+                    <option value="Bread">
+                        Bread
+                    </option>
+
+                    <option value="Pastry">
+                        Pastry
+                    </option>
+
+                    <option value="Cookies">
+                        Cookies
+                    </option>
+
+                    <option value="Donut">
+                        Donut
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- QUANTITY -->
+
+            <div class="form-group">
+
+                <label for="quantity">
+                    Quantity
+                </label>
+
+                <input
+                    type="number"
+                    id="quantity"
+                    min="0"
+                    step="1"
+                    placeholder="Enter quantity"
+                >
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="form-group">
+
+                <label for="price">
+                    Price (₱)
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    min="0"
+                    step="0.01"
+                    placeholder="Enter price"
+                >
+
+            </div>
+
+
+            <!-- MODAL BUTTONS -->
+
+            <div class="modal-buttons">
+
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="save-btn"
+                    onclick="saveProduct()">
+
+                    Save Product
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================================
+         NOTIFICATION
+    ================================= -->
+
+    <div
+        id="toast"
+        class="toast">
+
+        Saved successfully.
+
+    </div>
+
+
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
