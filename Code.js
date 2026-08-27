@@ -26,16 +26,16 @@ function doGet() {
 function getSheet() {
 
   const spreadsheet =
-    SpreadsheetApp.openById(SHEET_ID);
+    SpreadsheetApp.openById(Sheet1);
 
   let sheet =
-    spreadsheet.getSheetByName(SHEET_NAME);
+    spreadsheet.getSheetByName(Sheet1);
 
 
   if (!sheet) {
 
     sheet =
-      spreadsheet.insertSheet(SHEET_NAME);
+      spreadsheet.insertSheet(Sheet1);
 
     sheet.getRange(
       1,
