@@ -8,7 +8,7 @@
 ===================================================== */
 
 const API_URL =
-    'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+    'https://script.google.com/macros/s/AKfycbxaxpe4XeMpJ4lxKy8NOseO5mzrkRVUP3ww9-1i2JsSQIYcqeWSYTnKcoWhbFwMGpsl/exec';
 
 
 /* =====================================================
