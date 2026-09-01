@@ -4,22 +4,12 @@
 ========================================================= */
 
 
-/*
-   =========================================================
-   IMPORTANT
-   =========================================================
-
-   Replace this with your deployed Google Apps Script
-   Web App URL.
-
-   Example:
-
-   https://script.google.com/macros/s/XXXXXXXX/exec
-*/
+/* =========================================================
+   GOOGLE APPS SCRIPT URL
+========================================================= */
 
 const API_URL =
     'https://script.google.com/macros/s/AKfycbywd1F_QCcaZhyASrM2ZneuElKchlWNShkAaTkdJWwrUp7zL82-Y77F1Z_uLd3d7iAJ/exec';
-
 
 
 /* =========================================================
@@ -31,14 +21,12 @@ let productsCache = [];
 let lowStockFilter = false;
 
 
-
 /* =========================================================
    SHORTCUT
 ========================================================= */
 
 const $ = id =>
     document.getElementById(id);
-
 
 
 /* =========================================================
@@ -50,11 +38,6 @@ document.addEventListener(
     () => {
 
         bindEvents();
-
-
-        /*
-           Check whether a session exists.
-        */
 
         if (
             sessionStorage.getItem(
@@ -72,13 +55,11 @@ document.addEventListener(
 );
 
 
-
 /* =========================================================
    EVENT HANDLERS
 ========================================================= */
 
 function bindEvents() {
-
 
     /* LOGIN */
 
@@ -117,7 +98,7 @@ function bindEvents() {
         );
 
 
-    /* NAVIGATION */
+    /* PAGE NAVIGATION */
 
     document
         .querySelectorAll(
@@ -133,11 +114,9 @@ function bindEvents() {
                         const page =
                             button.dataset.page;
 
-
                         lowStockFilter =
                             button.dataset.filter ===
                             'low';
-
 
                         showPage(
                             page
@@ -207,7 +186,6 @@ function bindEvents() {
         );
 
 }
-
 
 
 /* =========================================================
@@ -339,7 +317,6 @@ async function api(
 }
 
 
-
 /* =========================================================
    LOGIN
 ========================================================= */
@@ -399,10 +376,6 @@ async function login(
 
             );
 
-
-        /*
-           Store session.
-        */
 
         sessionStorage.setItem(
 
@@ -472,9 +445,8 @@ async function login(
 }
 
 
-
 /* =========================================================
-   SHOW APPLICATION
+   SHOW APP
 ========================================================= */
 
 function showApp() {
@@ -489,7 +461,6 @@ function showApp() {
         .remove('hidden');
 
 }
-
 
 
 /* =========================================================
@@ -508,7 +479,6 @@ function showLogin() {
         .remove('hidden');
 
 }
-
 
 
 /* =========================================================
@@ -546,9 +516,7 @@ async function logout() {
 
     catch (error) {
 
-        /*
-           Local logout still happens.
-        */
+        /* Local logout still happens */
 
     }
 
@@ -569,7 +537,6 @@ async function logout() {
     );
 
 }
-
 
 
 /* =========================================================
@@ -611,8 +578,6 @@ function showPage(
     );
 
 
-    /* LOAD DATA */
-
     if (
         pageId ===
         'dashboardPage'
@@ -653,7 +618,6 @@ function showPage(
     }
 
 }
-
 
 
 /* =========================================================
@@ -713,7 +677,6 @@ async function loadDashboard() {
 }
 
 
-
 /* =========================================================
    LOAD PRODUCTS
 ========================================================= */
@@ -752,10 +715,6 @@ async function loadProducts(
             productsCache;
 
 
-        /*
-           Low-stock button filter.
-        */
-
         if (
             lowStockFilter
         ) {
@@ -788,6 +747,203 @@ async function loadProducts(
 
 }
 
+
+/* =========================================================
+   PRODUCT IMAGE / ICON
+========================================================= */
+
+/*
+   This function chooses a different image/icon
+   depending on the product name or category.
+*/
+
+function getProductImage(
+    product
+) {
+
+    const name =
+        String(
+            product.productName || ''
+        )
+        .toLowerCase();
+
+
+    const category =
+        String(
+            product.category || ''
+        )
+        .toLowerCase();
+
+
+    /* ENSAYMADA */
+
+    if (
+        name.includes(
+            'ensaymada'
+        )
+    ) {
+
+        return '🥐';
+
+    }
+
+
+    /* CUPCAKE */
+
+    if (
+        name.includes(
+            'cupcake'
+        )
+    ) {
+
+        return '🧁';
+
+    }
+
+
+    /* CHOCOLATE CAKE */
+
+    if (
+        name.includes(
+            'chocolate'
+        )
+
+        ||
+
+        name.includes(
+            'cake'
+        )
+
+        ||
+
+        category ===
+        'cake'
+    ) {
+
+        return '🍰';
+
+    }
+
+
+    /* BREAD */
+
+    if (
+        category ===
+        'bread'
+
+        ||
+
+        name.includes(
+            'bread'
+        )
+
+        ||
+
+        name.includes(
+            'pand'
+        )
+    ) {
+
+        return '🍞';
+
+    }
+
+
+    /* PASTRY */
+
+    if (
+        category ===
+        'pastry'
+
+        ||
+
+        name.includes(
+            'croissant'
+        )
+
+        ||
+
+        name.includes(
+            'danish'
+        )
+
+        ||
+
+        name.includes(
+            'pie'
+        )
+    ) {
+
+        return '🥐';
+
+    }
+
+
+    /* COOKIE */
+
+    if (
+        category ===
+        'cookie'
+
+        ||
+
+        name.includes(
+            'cookie'
+        )
+    ) {
+
+        return '🍪';
+
+    }
+
+
+    /* BEVERAGE */
+
+    if (
+        category ===
+        'beverage'
+
+        ||
+
+        name.includes(
+            'coffee'
+        )
+
+        ||
+
+        name.includes(
+            'juice'
+        )
+
+        ||
+
+        name.includes(
+            'drink'
+        )
+    ) {
+
+        return '🥤';
+
+    }
+
+
+    /* INGREDIENT */
+
+    if (
+        category ===
+        'ingredient'
+    ) {
+
+        return '🧈';
+
+    }
+
+
+    /* DEFAULT */
+
+    return '🍰';
+
+}
 
 
 /* =========================================================
@@ -853,6 +1009,16 @@ function renderProducts(
                     }
 
 
+                    /*
+                       Get product-specific image/icon.
+                    */
+
+                    const productImage =
+                        getProductImage(
+                            product
+                        );
+
+
                     return `
 
                     <article
@@ -862,7 +1028,17 @@ function renderProducts(
                         <div
                             class="product-image"
                         >
-                            🍰
+
+                            <span
+                                style="
+                                    font-size: 32px;
+                                    display: block;
+                                    text-align: center;
+                                "
+                            >
+                                ${productImage}
+                            </span>
+
                         </div>
 
 
@@ -871,9 +1047,11 @@ function renderProducts(
                             <div
                                 class="product-name"
                             >
+
                                 ${escapeHtml(
                                     product.productName
                                 )}
+
                             </div>
 
 
@@ -963,7 +1141,6 @@ function renderProducts(
             .join('');
 
 }
-
 
 
 /* =========================================================
@@ -1123,7 +1300,6 @@ async function addProduct(
 }
 
 
-
 /* =========================================================
    STOCK PRODUCTS
 ========================================================= */
@@ -1192,8 +1368,12 @@ async function loadStockProducts() {
 
                 option.textContent =
 
+                    `${getProductImage(product)} ` +
+
                     `${product.productName} — ` +
+
                     `${product.quantity} ` +
+
                     `${product.unit}`;
 
 
@@ -1215,7 +1395,6 @@ async function loadStockProducts() {
     }
 
 }
-
 
 
 /* =========================================================
@@ -1325,7 +1504,6 @@ async function stockIn() {
 }
 
 
-
 /* =========================================================
    QUICK STOCK IN
 ========================================================= */
@@ -1414,7 +1592,6 @@ async function quickStockIn(
     }
 
 }
-
 
 
 /* =========================================================
@@ -1606,7 +1783,6 @@ async function editProduct(
 }
 
 
-
 /* =========================================================
    DELETE PRODUCT
 ========================================================= */
@@ -1637,6 +1813,7 @@ async function removeProduct(
         confirm(
 
             `Delete "${product.productName}"?\n\n` +
+
             `This action cannot be undone.`
 
         );
@@ -1698,7 +1875,6 @@ async function removeProduct(
 }
 
 
-
 /* =========================================================
    SETTINGS
 ========================================================= */
@@ -1752,7 +1928,6 @@ async function loadSettings() {
     }
 
 }
-
 
 
 /* =========================================================
@@ -1863,7 +2038,6 @@ async function updateSettings(
 }
 
 
-
 /* =========================================================
    AUDIT LOG
 ========================================================= */
@@ -1936,6 +2110,7 @@ async function loadAudit() {
 
 
                         <div>
+
                             ${escapeHtml(
                                 log.username
                             )}
@@ -1945,13 +2120,16 @@ async function loadAudit() {
                             ${escapeHtml(
                                 log.date
                             )}
+
                         </div>
 
 
                         <div>
+
                             ${escapeHtml(
                                 log.details
                             )}
+
                         </div>
 
                     </div>
@@ -1973,9 +2151,8 @@ async function loadAudit() {
 }
 
 
-
 /* =========================================================
-   API ERROR HANDLER
+   API ERROR
 ========================================================= */
 
 function handleApiError(
@@ -2024,7 +2201,6 @@ function handleApiError(
     );
 
 }
-
 
 
 /* =========================================================
@@ -2079,7 +2255,6 @@ function showToast(
         );
 
 }
-
 
 
 /* =========================================================
