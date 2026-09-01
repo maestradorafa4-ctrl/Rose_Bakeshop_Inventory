@@ -1,43 +1,43 @@
-/* =========================================================
+/* =====================================================
    ROSE BAKESHOP INVENTORY
-   GITHUB FRONTEND
-========================================================= */
+===================================================== */
 
 
-/* =========================================================
+/* =====================================================
    GOOGLE APPS SCRIPT URL
-========================================================= */
+===================================================== */
 
 const API_URL =
-    'https://script.google.com/macros/s/AKfycbywd1F_QCcaZhyASrM2ZneuElKchlWNShkAaTkdJWwrUp7zL82-Y77F1Z_uLd3d7iAJ/exec';
+    'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
 
 
-/* =========================================================
+/* =====================================================
    GLOBAL VARIABLES
-========================================================= */
+===================================================== */
 
 let productsCache = [];
 
 let lowStockFilter = false;
 
 
-/* =========================================================
+/* =====================================================
    SHORTCUT
-========================================================= */
+===================================================== */
 
 const $ = id =>
     document.getElementById(id);
 
 
-/* =========================================================
-   PAGE START
-========================================================= */
+/* =====================================================
+   START
+===================================================== */
 
 document.addEventListener(
     'DOMContentLoaded',
     () => {
 
         bindEvents();
+
 
         if (
             sessionStorage.getItem(
@@ -47,7 +47,9 @@ document.addEventListener(
 
             showApp();
 
-            loadDashboard();
+            showPage(
+                'dashboardPage'
+            );
 
         }
 
@@ -55,11 +57,12 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   EVENT HANDLERS
-========================================================= */
+/* =====================================================
+   EVENTS
+===================================================== */
 
 function bindEvents() {
+
 
     /* LOGIN */
 
@@ -88,7 +91,7 @@ function bindEvents() {
 
                 showToast(
 
-                    'For security, password reset must be handled by the system administrator.',
+                    'Please contact the system administrator to reset your password.',
 
                     true
 
@@ -98,7 +101,7 @@ function bindEvents() {
         );
 
 
-    /* PAGE NAVIGATION */
+    /* ALL PAGE BUTTONS */
 
     document
         .querySelectorAll(
@@ -114,9 +117,11 @@ function bindEvents() {
                         const page =
                             button.dataset.page;
 
+
                         lowStockFilter =
                             button.dataset.filter ===
                             'low';
+
 
                         showPage(
                             page
@@ -167,10 +172,15 @@ function bindEvents() {
             'input',
             () => {
 
-                lowStockFilter = false;
+                lowStockFilter =
+                    false;
+
 
                 loadProducts(
-                    $('searchProducts').value
+
+                    $('searchProducts')
+                        .value
+
                 );
 
             }
@@ -188,14 +198,15 @@ function bindEvents() {
 }
 
 
-/* =========================================================
-   API REQUEST
-========================================================= */
+/* =====================================================
+   API
+===================================================== */
 
 async function api(
     action,
     data = {}
 ) {
+
 
     if (
         API_URL.includes(
@@ -205,7 +216,7 @@ async function api(
 
         throw new Error(
 
-            'Please put your Google Apps Script Web App URL in script.js first.'
+            'Please add your Google Apps Script Web App URL to script.js.'
 
         );
 
@@ -264,7 +275,7 @@ async function api(
 
         throw new Error(
 
-            'Unable to connect to the inventory server. Check your Apps Script Web App URL and deployment settings.'
+            'Unable to connect to the inventory server.'
 
         );
 
@@ -291,7 +302,7 @@ async function api(
 
         throw new Error(
 
-            'The server did not return valid JSON. Make sure the Apps Script deployment is a Web App ending in /exec.'
+            'The Apps Script server did not return valid JSON.'
 
         );
 
@@ -305,7 +316,7 @@ async function api(
         throw new Error(
 
             result.error ||
-            'The request failed.'
+            'Request failed.'
 
         );
 
@@ -317,9 +328,9 @@ async function api(
 }
 
 
-/* =========================================================
+/* =====================================================
    LOGIN
-========================================================= */
+===================================================== */
 
 async function login(
     event
@@ -397,18 +408,9 @@ async function login(
         );
 
 
-        $('password').value =
+        $('password')
+            .value =
             '';
-
-
-        $('attempts')
-            .textContent =
-            'Login successful.';
-
-
-        showToast(
-            'Login successful.'
-        );
 
 
         showApp();
@@ -421,33 +423,36 @@ async function login(
 
         await loadDashboard();
 
+
+        showToast(
+            'Login successful.'
+        );
+
     }
 
     catch (error) {
 
-        const message =
-            error.message ||
-            'Login failed.';
-
-
         showToast(
-            message,
+
+            error.message,
+
             true
+
         );
 
 
         $('attempts')
             .textContent =
-            message;
+            error.message;
 
     }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    SHOW APP
-========================================================= */
+===================================================== */
 
 function showApp() {
 
@@ -463,9 +468,9 @@ function showApp() {
 }
 
 
-/* =========================================================
+/* =====================================================
    SHOW LOGIN
-========================================================= */
+===================================================== */
 
 function showLogin() {
 
@@ -481,9 +486,9 @@ function showLogin() {
 }
 
 
-/* =========================================================
+/* =====================================================
    LOGOUT
-========================================================= */
+===================================================== */
 
 async function logout() {
 
@@ -502,10 +507,8 @@ async function logout() {
                 'logout',
 
                 {
-
                     token:
                         token
-
                 }
 
             );
@@ -516,7 +519,7 @@ async function logout() {
 
     catch (error) {
 
-        /* Local logout still happens */
+        /* Continue local logout */
 
     }
 
@@ -539,13 +542,14 @@ async function logout() {
 }
 
 
-/* =========================================================
+/* =====================================================
    PAGE NAVIGATION
-========================================================= */
+===================================================== */
 
 function showPage(
     pageId
 ) {
+
 
     document
         .querySelectorAll(
@@ -578,6 +582,8 @@ function showPage(
     );
 
 
+    /* DASHBOARD */
+
     if (
         pageId ===
         'dashboardPage'
@@ -587,6 +593,8 @@ function showPage(
 
     }
 
+
+    /* PRODUCTS */
 
     if (
         pageId ===
@@ -598,6 +606,8 @@ function showPage(
     }
 
 
+    /* STOCK */
+
     if (
         pageId ===
         'stockPage'
@@ -607,6 +617,8 @@ function showPage(
 
     }
 
+
+    /* SETTINGS */
 
     if (
         pageId ===
@@ -620,9 +632,9 @@ function showPage(
 }
 
 
-/* =========================================================
+/* =====================================================
    DASHBOARD
-========================================================= */
+===================================================== */
 
 async function loadDashboard() {
 
@@ -677,9 +689,9 @@ async function loadDashboard() {
 }
 
 
-/* =========================================================
-   LOAD PRODUCTS
-========================================================= */
+/* =====================================================
+   PRODUCTS
+===================================================== */
 
 async function loadProducts(
     search = ''
@@ -748,14 +760,9 @@ async function loadProducts(
 }
 
 
-/* =========================================================
-   PRODUCT IMAGE / ICON
-========================================================= */
-
-/*
-   This function chooses a different image/icon
-   depending on the product name or category.
-*/
+/* =====================================================
+   PRODUCT ICON
+===================================================== */
 
 function getProductImage(
     product
@@ -775,7 +782,16 @@ function getProductImage(
         .toLowerCase();
 
 
-    /* ENSAYMADA */
+    if (
+        name.includes(
+            'cupcake'
+        )
+    ) {
+
+        return '🧁';
+
+    }
+
 
     if (
         name.includes(
@@ -788,28 +804,7 @@ function getProductImage(
     }
 
 
-    /* CUPCAKE */
-
     if (
-        name.includes(
-            'cupcake'
-        )
-    ) {
-
-        return '🧁';
-
-    }
-
-
-    /* CHOCOLATE CAKE */
-
-    if (
-        name.includes(
-            'chocolate'
-        )
-
-        ||
-
         name.includes(
             'cake'
         )
@@ -825,8 +820,6 @@ function getProductImage(
     }
 
 
-    /* BREAD */
-
     if (
         category ===
         'bread'
@@ -840,7 +833,7 @@ function getProductImage(
         ||
 
         name.includes(
-            'pand'
+            'pandesal'
         )
     ) {
 
@@ -848,8 +841,6 @@ function getProductImage(
 
     }
 
-
-    /* PASTRY */
 
     if (
         category ===
@@ -879,8 +870,6 @@ function getProductImage(
     }
 
 
-    /* COOKIE */
-
     if (
         category ===
         'cookie'
@@ -896,8 +885,6 @@ function getProductImage(
 
     }
 
-
-    /* BEVERAGE */
 
     if (
         category ===
@@ -927,8 +914,6 @@ function getProductImage(
     }
 
 
-    /* INGREDIENT */
-
     if (
         category ===
         'ingredient'
@@ -939,16 +924,14 @@ function getProductImage(
     }
 
 
-    /* DEFAULT */
-
     return '🍰';
 
 }
 
 
-/* =========================================================
+/* =====================================================
    RENDER PRODUCTS
-========================================================= */
+===================================================== */
 
 function renderProducts(
     products
@@ -983,6 +966,7 @@ function renderProducts(
             .map(
                 product => {
 
+
                     let statusClass =
                         'in';
 
@@ -1009,10 +993,6 @@ function renderProducts(
                     }
 
 
-                    /*
-                       Get product-specific image/icon.
-                    */
-
                     const productImage =
                         getProductImage(
                             product
@@ -1031,9 +1011,7 @@ function renderProducts(
 
                             <span
                                 style="
-                                    font-size: 32px;
-                                    display: block;
-                                    text-align: center;
+                                    font-size: 30px;
                                 "
                             >
                                 ${productImage}
@@ -1143,9 +1121,9 @@ function renderProducts(
 }
 
 
-/* =========================================================
+/* =====================================================
    ADD PRODUCT
-========================================================= */
+===================================================== */
 
 async function addProduct(
     event
@@ -1199,26 +1177,6 @@ async function addProduct(
         showToast(
 
             'Please complete all required fields.',
-
-            true
-
-        );
-
-        return;
-
-    }
-
-
-    if (
-        Number(costPrice) < 0 ||
-        Number(sellingPrice) < 0 ||
-        Number(initialStock) < 0 ||
-        Number(reorderLevel) < 0
-    ) {
-
-        showToast(
-
-            'Values cannot be negative.',
 
             true
 
@@ -1300,9 +1258,9 @@ async function addProduct(
 }
 
 
-/* =========================================================
-   STOCK PRODUCTS
-========================================================= */
+/* =====================================================
+   LOAD STOCK PRODUCTS
+===================================================== */
 
 async function loadStockProducts() {
 
@@ -1334,23 +1292,6 @@ async function loadStockProducts() {
 
         select.innerHTML =
             '';
-
-
-        if (
-            !result.products.length
-        ) {
-
-            select.innerHTML = `
-
-                <option value="">
-                    No products available
-                </option>
-
-            `;
-
-            return;
-
-        }
 
 
         result.products.forEach(
@@ -1397,9 +1338,9 @@ async function loadStockProducts() {
 }
 
 
-/* =========================================================
+/* =====================================================
    STOCK IN
-========================================================= */
+===================================================== */
 
 async function stockIn() {
 
@@ -1473,11 +1414,7 @@ async function stockIn() {
 
 
         showToast(
-
-            result.message +
-            ' New quantity: ' +
-            result.quantity
-
+            result.message
         );
 
 
@@ -1504,9 +1441,9 @@ async function stockIn() {
 }
 
 
-/* =========================================================
+/* =====================================================
    QUICK STOCK IN
-========================================================= */
+===================================================== */
 
 async function quickStockIn(
     id
@@ -1594,9 +1531,9 @@ async function quickStockIn(
 }
 
 
-/* =========================================================
+/* =====================================================
    EDIT PRODUCT
-========================================================= */
+===================================================== */
 
 async function editProduct(
     id
@@ -1606,7 +1543,8 @@ async function editProduct(
         productsCache.find(
 
             item =>
-                item.id === id
+                String(item.id) ===
+                String(id)
 
         );
 
@@ -1696,25 +1634,6 @@ async function editProduct(
     }
 
 
-    if (
-        Number(quantity) < 0 ||
-        Number(price) < 0 ||
-        Number(reorder) < 0
-    ) {
-
-        showToast(
-
-            'Values cannot be negative.',
-
-            true
-
-        );
-
-        return;
-
-    }
-
-
     try {
 
         const result =
@@ -1783,9 +1702,9 @@ async function editProduct(
 }
 
 
-/* =========================================================
+/* =====================================================
    DELETE PRODUCT
-========================================================= */
+===================================================== */
 
 async function removeProduct(
     id
@@ -1795,7 +1714,8 @@ async function removeProduct(
         productsCache.find(
 
             item =>
-                item.id === id
+                String(item.id) ===
+                String(id)
 
         );
 
@@ -1814,7 +1734,7 @@ async function removeProduct(
 
             `Delete "${product.productName}"?\n\n` +
 
-            `This action cannot be undone.`
+            'This action cannot be undone.'
 
         );
 
@@ -1875,9 +1795,9 @@ async function removeProduct(
 }
 
 
-/* =========================================================
-   SETTINGS
-========================================================= */
+/* =====================================================
+   LOAD SETTINGS
+===================================================== */
 
 async function loadSettings() {
 
@@ -1914,9 +1834,6 @@ async function loadSettings() {
             .value =
             result.settings.defaultUnit;
 
-
-        await loadAudit();
-
     }
 
     catch (error) {
@@ -1930,9 +1847,9 @@ async function loadSettings() {
 }
 
 
-/* =========================================================
+/* =====================================================
    UPDATE SETTINGS
-========================================================= */
+===================================================== */
 
 async function updateSettings(
     event
@@ -1944,9 +1861,7 @@ async function updateSettings(
     const confirmed =
         confirm(
 
-            'Are you sure you want to update these system settings?\n\n' +
-
-            'The change will be recorded in the audit log.'
+            'Are you sure you want to update these system settings?'
 
         );
 
@@ -2022,9 +1937,6 @@ async function updateSettings(
             result.message
         );
 
-
-        await loadAudit();
-
     }
 
     catch (error) {
@@ -2038,122 +1950,9 @@ async function updateSettings(
 }
 
 
-/* =========================================================
-   AUDIT LOG
-========================================================= */
-
-async function loadAudit() {
-
-    try {
-
-        const result =
-            await api(
-
-                'dashboard',
-
-                {
-
-                    token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        )
-
-                }
-
-            );
-
-
-        const logs =
-            result.recentChanges || [];
-
-
-        const auditList =
-            $('auditList');
-
-
-        if (
-            !logs.length
-        ) {
-
-            auditList.innerHTML = `
-
-                <div class="audit-row">
-
-                    No recent changes.
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        auditList.innerHTML =
-
-            logs
-                .map(
-                    log => `
-
-                    <div
-                        class="audit-row"
-                    >
-
-                        <div
-                            class="audit-action"
-                        >
-                            ${escapeHtml(
-                                log.action
-                            )}
-                        </div>
-
-
-                        <div>
-
-                            ${escapeHtml(
-                                log.username
-                            )}
-
-                            ·
-
-                            ${escapeHtml(
-                                log.date
-                            )}
-
-                        </div>
-
-
-                        <div>
-
-                            ${escapeHtml(
-                                log.details
-                            )}
-
-                        </div>
-
-                    </div>
-
-                    `
-                )
-                .join('');
-
-    }
-
-    catch (error) {
-
-        handleApiError(
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
+/* =====================================================
    API ERROR
-========================================================= */
+===================================================== */
 
 function handleApiError(
     error
@@ -2203,9 +2002,9 @@ function handleApiError(
 }
 
 
-/* =========================================================
+/* =====================================================
    TOAST
-========================================================= */
+===================================================== */
 
 function showToast(
     message,
@@ -2257,9 +2056,9 @@ function showToast(
 }
 
 
-/* =========================================================
+/* =====================================================
    HTML SECURITY
-========================================================= */
+===================================================== */
 
 function escapeHtml(
     value
