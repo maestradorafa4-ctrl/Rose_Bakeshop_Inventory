@@ -1,770 +1,876 @@
+/* =====================================================
+   ROSE BAKESHOP INVENTORY
+===================================================== */
+
 * {
     box-sizing: border-box;
 }
 
-:root {
-    --cream: #fff5e8;
-    --cream-dark: #ead4b1;
-    --brown: #7d5634;
-    --brown-dark: #5f3e24;
-    --gold: #e8c985;
-    --white: #ffffff;
-    --red: #b64a3c;
-    --green: #4b9366;
-    --gray: #777777;
-    --text: #3f3125;
-}
 
+html,
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--cream);
-    color: var(--text);
+
+    padding: 0;
+
+    min-height: 100%;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #fff4e8;
+
+    color: #2f211a;
 }
 
 
-/* =========================================================
-   GENERAL
-========================================================= */
+body {
+    min-height: 100vh;
+}
+
 
 button,
 input,
 select {
-    font: inherit;
+    font-family: inherit;
 }
+
 
 button {
     cursor: pointer;
 }
 
+
 .hidden {
     display: none !important;
 }
 
-.screen {
-    min-height: 100vh;
-}
 
-
-/* =========================================================
+/* =====================================================
    LOGIN
-========================================================= */
+===================================================== */
 
 .login-screen {
-    display: grid;
-    place-items: center;
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
 
     padding: 20px;
-
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(232, 201, 133, 0.25),
-            transparent 20%
-        ),
-
-        radial-gradient(
-            circle at 80% 70%,
-            rgba(125, 86, 52, 0.10),
-            transparent 25%
-        ),
-
-        var(--cream);
 }
+
 
 .login-card {
-    width: min(390px, 95vw);
+    width: 100%;
 
-    background: rgba(255, 255, 255, 0.82);
+    max-width: 430px;
 
-    border: 1px solid var(--cream-dark);
+    background: #ffffff;
 
-    padding: 28px;
+    border: 1px solid #e4c4aa;
 
-    border-radius: 12px;
+    border-radius: 10px;
+
+    padding: 35px;
 
     box-shadow:
-        0 12px 35px rgba(70, 45, 25, 0.12);
+        0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+.login-title {
+    background: #d9b777;
+
+    padding: 18px;
 
     text-align: center;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    color: #332319;
 }
 
-.brand-box {
-    padding: 16px 8px;
 
-    background: #d8bb7c;
+.login-subtitle {
+    text-align: center;
 
-    color: #2f261e;
+    color: #805438;
 
-    font-weight: 700;
+    margin-top: 8px;
 
-    letter-spacing: 0.8px;
+    margin-bottom: 28px;
 
-    margin-bottom: 8px;
+    font-size: 14px;
 }
 
-.role-label {
-    font-size: 12px;
 
-    margin-bottom: 24px;
-}
-
-label {
+.login-card label,
+.form-card label {
     display: block;
 
-    text-align: left;
+    margin-top: 15px;
 
-    font-size: 12px;
+    margin-bottom: 6px;
 
-    margin: 12px 0 5px;
+    font-size: 14px;
 
-    color: #5e4c3c;
+    font-weight: 500;
 }
+
 
 input,
 select {
     width: 100%;
 
-    border: 1px solid #d7c5ad;
+    padding: 12px;
+
+    border: 1px solid #dfbda3;
+
+    border-radius: 5px;
 
     background: #ffffff;
 
-    padding: 11px 12px;
+    color: #2f211a;
 
-    border-radius: 5px;
+    font-size: 15px;
 
     outline: none;
 }
 
+
 input:focus,
 select:focus {
-    border-color: var(--brown);
+    border-color: #8b5739;
 
     box-shadow:
-        0 0 0 2px rgba(125, 86, 52, 0.12);
+        0 0 0 2px
+        rgba(139, 87, 57, 0.12);
 }
 
 
-/* =========================================================
+/* =====================================================
    BUTTONS
-========================================================= */
-
-.primary-btn,
-.secondary-btn,
-.menu-btn,
-.back-btn,
-.logout-btn,
-.link-btn {
-    border: 0;
-}
+===================================================== */
 
 .primary-btn {
-    background: var(--brown);
+    border: none;
+
+    background: #8b5739;
 
     color: white;
 
-    padding: 11px 18px;
+    padding: 12px 20px;
 
     border-radius: 5px;
 
-    font-weight: 700;
+    font-weight: bold;
+
+    transition: 0.2s;
 }
+
 
 .primary-btn:hover {
-    background: var(--brown-dark);
+    background: #70442d;
 }
+
 
 .secondary-btn {
-    background: #e7e0d7;
+    border: none;
 
-    color: #493a2c;
+    background: #eadfd7;
 
-    padding: 10px 15px;
+    color: #432d21;
+
+    padding: 11px 17px;
 
     border-radius: 5px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
 }
+
 
 .secondary-btn:hover {
-    background: #d9d0c5;
+    background: #ddcfc5;
 }
 
-.back-btn {
-    background: #e7e0d7;
-
-    color: #493a2c;
-
-    padding: 9px 15px;
-
-    border-radius: 5px;
-}
 
 .link-btn {
+    display: block;
+
+    width: 100%;
+
+    border: none;
+
     background: transparent;
 
-    color: var(--brown);
+    color: #8b5739;
 
-    margin-top: 12px;
+    margin-top: 15px;
 
-    font-size: 12px;
+    font-size: 13px;
 }
 
-#loginForm .primary-btn {
+
+.login-btn {
     width: 100%;
 
-    margin-top: 20px;
+    margin-top: 22px;
 }
 
-.full-btn {
-    width: 100%;
-
-    margin-top: 20px;
-}
 
 .attempts {
-    margin-top: 14px;
+    text-align: center;
 
-    font-size: 11px;
+    margin-top: 18px;
 
-    color: var(--gray);
+    font-size: 12px;
+
+    color: #777;
 }
 
 
-/* =========================================================
-   TOP BAR
-========================================================= */
+/* =====================================================
+   HEADER
+===================================================== */
 
-.topbar {
-    background: var(--brown);
+.top-header {
+    min-height: 75px;
 
-    color: #ffffff;
+    background: #8b5739;
 
-    padding: 14px 20px;
+    color: white;
 
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px 20px;
+
+    border-bottom: 1px solid #70442d;
+}
+
+
+.brand {
+    font-size: 20px;
+
+    font-weight: bold;
+
+    letter-spacing: 0.3px;
+}
+
+
+.brand-subtitle {
+    font-size: 12px;
+
+    margin-top: 3px;
+
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   TOP RIGHT BUTTONS
+   ONLY SETTINGS + LOGOUT
+===================================================== */
+
+.header-buttons {
     display: flex;
 
     align-items: center;
 
-    justify-content: space-between;
+    gap: 10px;
 }
 
-.topbar strong {
-    display: block;
 
-    letter-spacing: 0.7px;
-}
+.header-btn {
+    border: 1px solid rgba(255,255,255,0.8);
 
-.topbar span {
-    display: block;
+    background: transparent;
 
-    font-size: 11px;
+    color: white;
 
-    opacity: 0.85;
-
-    margin-top: 3px;
-}
-
-.logout-btn {
-    background: #ffffff;
-
-    color: var(--brown-dark);
+    padding: 10px 16px;
 
     border-radius: 5px;
 
-    padding: 8px 12px;
+    font-size: 14px;
+
+    transition: 0.2s;
 }
 
 
-/* =========================================================
-   APP CONTENT
-========================================================= */
+.header-btn:hover {
+    background: rgba(255,255,255,0.12);
+}
 
-.app-content {
-    width: min(950px, 94vw);
+
+.logout-btn {
+    border: none;
+
+    background: white;
+
+    color: #633f29;
+
+    padding: 10px 16px;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+
+.logout-btn:hover {
+    background: #f4eee9;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main-container {
+    max-width: 950px;
 
     margin: 0 auto;
 
-    padding: 24px 0 90px;
+    padding: 30px 20px 40px;
 }
 
-.page-title,
+
+.page h1 {
+    margin: 0;
+
+    font-size: 28px;
+}
+
+
+.page-description {
+    color: #765d4d;
+
+    margin: 7px 0 25px;
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
 .page-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+.page-navigation {
     display: flex;
 
     align-items: center;
 
-    justify-content: space-between;
-
-    gap: 16px;
-}
-
-.page-title h1,
-.page-heading h2 {
-    margin: 0;
-}
-
-.page-title p {
-    margin: 7px 0 0;
-
-    font-size: 13px;
-
-    color: var(--gray);
-}
-
-.bakery-icon {
-    font-size: 45px;
+    gap: 8px;
 }
 
 
-/* =========================================================
+/* =====================================================
    DASHBOARD
-========================================================= */
+===================================================== */
 
-.stats-grid {
+.dashboard-grid {
     display: grid;
 
     grid-template-columns:
         repeat(4, 1fr);
 
-    gap: 12px;
-
-    margin: 22px 0;
+    gap: 15px;
 }
 
-.stat-card {
-    background: #ffffff;
 
-    border: 1px solid var(--cream-dark);
+.dashboard-card {
+    background: white;
+
+    border: 1px solid #e5c5ad;
 
     border-radius: 8px;
 
-    padding: 18px 12px;
+    padding: 22px;
 
     text-align: center;
 }
 
-.stat-card span {
+
+.dashboard-card span {
     display: block;
 
-    font-size: 11px;
+    color: #806b5e;
 
-    color: var(--gray);
+    font-size: 13px;
+
+    margin-bottom: 10px;
 }
 
-.stat-card b {
-    display: block;
 
-    margin-top: 10px;
-
+.dashboard-card strong {
     font-size: 25px;
 
-    color: var(--brown-dark);
-}
-
-.action-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 10px;
-}
-
-.menu-btn {
-    background: #edcf91;
-
-    color: #3f3125;
-
-    padding: 14px 8px;
-
-    border-radius: 5px;
-
-    border: 1px solid #d8b86e;
-}
-
-.menu-btn:hover {
-    background: #e4c37f;
-}
-
-.security-note,
-.warning-box {
-    background: #fffdf7;
-
-    border: 1px solid var(--cream-dark);
-
-    padding: 12px;
-
-    border-radius: 6px;
-
-    font-size: 12px;
-
-    line-height: 1.5;
-
-    margin-top: 18px;
-}
-
-.warning-box {
-    border-left: 4px solid var(--brown);
+    color: #8b5739;
 }
 
 
-/* =========================================================
-   FORMS
-========================================================= */
+.inventory-overview {
+    margin-top: 35px;
 
-.form-card,
-.audit-card {
-    margin-top: 18px;
+    background: white;
 
-    background: rgba(255, 255, 255, 0.78);
-
-    border: 1px solid var(--cream-dark);
+    border: 1px solid #e5c5ad;
 
     border-radius: 8px;
 
-    padding: 20px;
-}
-
-.form-actions {
-    display: flex;
-
-    justify-content: flex-end;
-
-    gap: 10px;
-
-    margin-top: 20px;
+    padding: 25px;
 }
 
 
-/* =========================================================
-   PRODUCTS
-========================================================= */
+.inventory-overview h2 {
+    margin-top: 0;
+
+    font-size: 18px;
+}
+
+
+.overview-buttons {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+
+.overview-buttons button {
+    border: 1px solid #d7b18e;
+
+    background: #f2d29d;
+
+    color: #40291d;
+
+    padding: 14px;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+
+.overview-buttons button:hover {
+    background: #eac685;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .search-row {
     display: flex;
 
-    gap: 8px;
+    gap: 10px;
 
-    margin: 18px 0;
+    margin-bottom: 18px;
 }
+
 
 .search-row input {
     flex: 1;
 }
 
-.product-list {
-    display: grid;
 
-    gap: 10px;
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+.product-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
 }
 
-.product-item {
-    background: #ffffff;
 
-    border: 1px solid var(--cream-dark);
+.product-item {
+    background: white;
+
+    border: 1px solid #e6c5ad;
 
     border-radius: 8px;
 
-    padding: 14px;
+    padding: 15px;
 
     display: grid;
 
     grid-template-columns:
-        55px 1fr auto;
+        60px 1fr auto;
+
+    gap: 15px;
 
     align-items: center;
-
-    gap: 12px;
 }
+
 
 .product-image {
     width: 55px;
 
     height: 55px;
 
-    border-radius: 7px;
+    display: flex;
 
-    display: grid;
+    align-items: center;
 
-    place-items: center;
+    justify-content: center;
 
-    background: #eee;
+    background: #f0eeee;
 
-    font-size: 25px;
+    border-radius: 8px;
 }
+
 
 .product-name {
-    font-weight: 700;
+    font-size: 17px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
 }
+
 
 .product-meta {
-    font-size: 11px;
+    color: #777;
 
-    color: var(--gray);
+    font-size: 12px;
 
-    margin-top: 4px;
+    margin-bottom: 6px;
 }
+
+
+.status {
+    display: inline-block;
+
+    padding: 3px 8px;
+
+    border-radius: 10px;
+
+    font-size: 11px;
+}
+
+
+.status.in {
+    background: #d9f0df;
+
+    color: #25703d;
+}
+
+
+.status.low {
+    background: #fff0c4;
+
+    color: #8a6500;
+}
+
+
+.status.out {
+    background: #ffd9d9;
+
+    color: #9b2424;
+}
+
 
 .product-right {
     text-align: right;
 }
 
+
 .product-price {
-    font-weight: 700;
+    font-weight: bold;
+
+    font-size: 16px;
+
+    margin-bottom: 10px;
 }
 
-.status {
-    display: inline-block;
-
-    margin-top: 5px;
-
-    padding: 3px 7px;
-
-    border-radius: 10px;
-
-    font-size: 10px;
-}
-
-.status.in {
-    background: #e1f1e5;
-
-    color: #27613b;
-}
-
-.status.low {
-    background: #fff0c7;
-
-    color: #7b5a00;
-}
-
-.status.out {
-    background: #f9d9d5;
-
-    color: #8b2f27;
-}
 
 .product-actions {
-    margin-top: 8px;
-
     display: flex;
 
-    gap: 5px;
-
-    justify-content: flex-end;
+    gap: 6px;
 }
 
+
 .product-actions button {
-    border: 1px solid #d8c7b3;
+    border: 1px solid #d8b89f;
 
-    background: #fffaf4;
+    background: white;
 
-    padding: 5px 8px;
+    padding: 6px 10px;
 
     border-radius: 4px;
 
-    cursor: pointer;
-
-    font-size: 11px;
+    font-size: 12px;
 }
+
 
 .product-actions button:hover {
-    background: #f0e4d4;
+    background: #f8eee7;
 }
 
 
-/* =========================================================
-   ADD BUTTON
-========================================================= */
+/* =====================================================
+   FLOATING ADD
+===================================================== */
 
 .floating-add {
     position: fixed;
 
     right: 28px;
 
-    bottom: 80px;
+    bottom: 28px;
 
-    width: 48px;
+    width: 50px;
 
-    height: 48px;
+    height: 50px;
 
-    border: 0;
+    border: none;
 
     border-radius: 50%;
 
-    background: var(--brown);
+    background: #8b5739;
 
-    color: #ffffff;
+    color: white;
 
-    font-size: 28px;
-
-    cursor: pointer;
+    font-size: 27px;
 
     box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.2);
+        0 4px 12px rgba(0,0,0,0.2);
+
+    z-index: 10;
 }
+
 
 .floating-add:hover {
-    background: var(--brown-dark);
+    background: #70442d;
 }
 
 
-/* =========================================================
-   AUDIT LOG
-========================================================= */
+/* =====================================================
+   FORM
+===================================================== */
 
-.audit-card {
-    margin-bottom: 20px;
+.form-card {
+    background: white;
+
+    border: 1px solid #e6c5ad;
+
+    border-radius: 8px;
+
+    padding: 25px;
+
+    max-width: 950px;
+
+    margin: 0 auto;
 }
 
-.audit-row {
-    padding: 9px 0;
 
-    border-bottom:
-        1px solid #eee2d2;
+.form-buttons {
+    display: flex;
 
-    font-size: 11px;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+.stock-btn {
+    margin-top: 22px;
+}
+
+
+/* =====================================================
+   AUTHORIZATION
+===================================================== */
+
+.authorization-box {
+    margin-top: 25px;
+
+    padding: 15px;
+
+    border: 1px solid #d9b18d;
+
+    border-left:
+        5px solid #8b5739;
+
+    border-radius: 6px;
+
+    background: #fffaf5;
+}
+
+
+.authorization-box strong {
+    display: block;
+
+    margin-bottom: 5px;
+}
+
+
+.authorization-box p {
+    margin: 0;
+
+    font-size: 13px;
 
     line-height: 1.5;
 }
 
-.audit-row:last-child {
-    border-bottom: 0;
-}
 
-.audit-action {
-    font-weight: 700;
-
-    color: var(--brown-dark);
-}
+/* =====================================================
+   IMPORTANT:
+   NO BOTTOM NAVIGATION
+===================================================== */
 
 
-/* =========================================================
+/* =====================================================
    TOAST
-========================================================= */
+===================================================== */
 
 .toast {
     position: fixed;
 
-    top: 18px;
+    right: 20px;
 
-    right: 18px;
+    top: 90px;
 
-    z-index: 99;
+    background: #333;
 
-    background: #3c332b;
+    color: white;
 
-    color: #ffffff;
+    padding: 12px 18px;
 
-    padding: 11px 14px;
-
-    border-radius: 6px;
-
-    font-size: 12px;
+    border-radius: 5px;
 
     opacity: 0;
 
-    transform: translateY(-10px);
-
     pointer-events: none;
 
-    transition: 0.2s;
+    transition: opacity 0.3s;
+
+    z-index: 100;
 }
+
 
 .toast.show {
     opacity: 1;
-
-    transform: translateY(0);
 }
+
 
 .toast.error {
-    background: var(--red);
+    background: #a52c2c;
 }
 
 
-/* =========================================================
-   BOTTOM NAVIGATION
-========================================================= */
-
-.bottom-nav {
-    position: fixed;
-
-    left: 0;
-
-    right: 0;
-
-    bottom: 0;
-
-    background: #ffffff;
-
-    border-top:
-        1px solid var(--cream-dark);
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 4px;
-
-    padding: 8px;
-
-    z-index: 50;
-}
-
-.bottom-nav button {
-    border: 0;
-
-    background: transparent;
-
-    color: var(--brown);
-
-    padding: 8px 16px;
-
-    cursor: pointer;
-}
-
-.bottom-nav button:hover {
-    background: #fff4e4;
-
-    border-radius: 5px;
-}
-
-
-/* =========================================================
+/* =====================================================
    MOBILE
-========================================================= */
+===================================================== */
 
-@media (max-width: 720px) {
+@media (max-width: 700px) {
 
-    .stats-grid,
-    .action-grid {
+
+    .top-header {
+        padding: 12px;
+    }
+
+
+    .brand {
+        font-size: 17px;
+    }
+
+
+    .brand-subtitle {
+        font-size: 11px;
+    }
+
+
+    .header-buttons {
+        gap: 5px;
+    }
+
+
+    .header-btn,
+    .logout-btn {
+        padding: 8px 9px;
+
+        font-size: 12px;
+    }
+
+
+    .main-container {
+        padding:
+            25px 12px 35px;
+    }
+
+
+    .page-heading {
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+
+    .page-heading h1 {
+        font-size: 23px;
+    }
+
+
+    .page-navigation {
+        flex-shrink: 0;
+    }
+
+
+    .page-navigation .secondary-btn {
+        padding: 9px 10px;
+
+        font-size: 12px;
+    }
+
+
+    .dashboard-grid {
         grid-template-columns:
             repeat(2, 1fr);
     }
 
-    .app-content {
-        width: 94vw;
-    }
-
-}
-
-
-@media (max-width: 480px) {
-
-    .stats-grid,
-    .action-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
 
     .product-item {
         grid-template-columns:
-            45px 1fr;
+            50px 1fr;
     }
 
-    .product-image {
-        width: 45px;
-
-        height: 45px;
-    }
 
     .product-right {
         grid-column: 2;
@@ -772,20 +878,32 @@ select:focus {
         text-align: left;
     }
 
+
     .product-actions {
-        justify-content: flex-start;
+        flex-wrap: wrap;
     }
 
-    .bottom-nav button {
-        padding: 8px 9px;
 
-        font-size: 11px;
+    .search-row {
+        flex-direction: column;
     }
+
+
+    .overview-buttons {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .form-card {
+        padding: 18px;
+    }
+
 
     .floating-add {
-        right: 18px;
+        right: 20px;
 
-        bottom: 70px;
+        bottom: 20px;
     }
 
 }
