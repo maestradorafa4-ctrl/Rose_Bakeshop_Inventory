@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Rose Bakeshop Inventory</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-<!-- =========================================================
-     TOAST MESSAGE
-========================================================= -->
 
-<div id="toast" class="toast"></div>
-
-
-<!-- =========================================================
+<!-- =====================================================
      LOGIN SCREEN
-========================================================= -->
+===================================================== -->
 
-<section id="loginScreen" class="screen login-screen">
+<section
+    id="loginScreen"
+    class="login-screen"
+>
 
     <div class="login-card">
 
-        <div class="brand-box">
+        <div class="login-title">
             ROSE BAKESHOP
         </div>
 
-        <p class="role-label">
+        <div class="login-subtitle">
             Inventory Manager Login
-        </p>
+        </div>
 
 
         <form id="loginForm">
@@ -42,10 +50,10 @@
             </label>
 
             <input
-                id="username"
                 type="text"
-                autocomplete="username"
+                id="username"
                 placeholder="Enter Username"
+                autocomplete="username"
                 required
             >
 
@@ -55,39 +63,39 @@
             </label>
 
             <input
-                id="password"
                 type="password"
-                autocomplete="current-password"
+                id="password"
                 placeholder="Enter Password"
+                autocomplete="current-password"
                 required
             >
 
 
             <button
                 type="submit"
-                class="primary-btn"
+                class="primary-btn login-btn"
             >
-                LOGIN
+                Login
             </button>
 
+
+            <button
+                type="button"
+                id="forgotBtn"
+                class="link-btn"
+            >
+                Forgot Password?
+            </button>
+
+
+            <div
+                id="attempts"
+                class="attempts"
+            >
+                Login Attempts Remaining: 5
+            </div>
+
         </form>
-
-
-        <button
-            id="forgotBtn"
-            class="link-btn"
-            type="button"
-        >
-            Forgot Password?
-        </button>
-
-
-        <div
-            id="attempts"
-            class="attempts"
-        >
-            Login Attempts Remaining: 5
-        </div>
 
     </div>
 
@@ -95,33 +103,46 @@
 
 
 
-<!-- =========================================================
-     MAIN APPLICATION
-========================================================= -->
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
 
 <section
     id="appScreen"
-    class="screen app-screen hidden"
+    class="hidden"
 >
 
 
-    <!-- =====================================================
-         TOP BAR
-    ====================================================== -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-    <header class="topbar">
+<header class="top-header">
 
-        <div>
+    <div class="brand-container">
 
-            <strong>
-                ROSE BAKESHOP
-            </strong>
-
-            <span>
-                Inventory Management
-            </span>
-
+        <div class="brand">
+            ROSE BAKESHOP
         </div>
+
+        <div class="brand-subtitle">
+            Inventory Management
+        </div>
+
+    </div>
+
+
+    <!-- ONLY SETTINGS + LOGOUT REMAIN HERE -->
+
+    <div class="header-buttons">
+
+        <button
+            id="settingsTopBtn"
+            data-page="settingsPage"
+            class="header-btn"
+        >
+            ⚙ Settings
+        </button>
 
 
         <button
@@ -131,705 +152,717 @@
             Logout
         </button>
 
-    </header>
+    </div>
 
+</header>
 
 
-    <!-- =====================================================
-         APPLICATION CONTENT
-    ====================================================== -->
 
-    <main class="app-content">
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
 
+<main class="main-container">
 
-        <!-- =================================================
-             DASHBOARD
-        ================================================== -->
 
-        <section
-            id="dashboardPage"
-            class="page"
-        >
+<!-- =====================================================
+     DASHBOARD / HOME
+===================================================== -->
 
-            <div class="page-title">
+<section
+    id="dashboardPage"
+    class="page"
+>
 
-                <div>
+    <div class="page-heading">
 
-                    <h1>
-                        WELCOME!
-                    </h1>
+        <div>
 
-                    <p>
-                        Manage your bakery inventory.
-                    </p>
+            <h1>
+                Welcome!
+            </h1>
 
-                </div>
+            <p class="page-description">
+                Manage your bakery inventory.
+            </p>
 
+        </div>
 
-                <div class="bakery-icon">
-                    🥐
-                </div>
+    </div>
 
-            </div>
 
+    <!-- DASHBOARD CARDS -->
 
+    <div class="dashboard-grid">
 
-            <!-- STATISTICS -->
 
-            <div class="stats-grid">
+        <div class="dashboard-card">
 
-                <div class="stat-card">
+            <span>
+                Total Products
+            </span>
 
-                    <span>
-                        Total Products
-                    </span>
+            <strong id="totalProducts">
+                0
+            </strong>
 
-                    <b id="totalProducts">
-                        0
-                    </b>
+        </div>
 
-                </div>
 
+        <div class="dashboard-card">
 
-                <div class="stat-card">
+            <span>
+                Total Stocks
+            </span>
 
-                    <span>
-                        Total Stocks
-                    </span>
+            <strong id="totalStocks">
+                0
+            </strong>
 
-                    <b id="totalStocks">
-                        0
-                    </b>
+        </div>
 
-                </div>
 
+        <div class="dashboard-card">
 
-                <div class="stat-card">
+            <span>
+                Low Items
+            </span>
 
-                    <span>
-                        Low Items
-                    </span>
+            <strong id="lowItems">
+                0
+            </strong>
 
-                    <b id="lowItems">
-                        0
-                    </b>
+        </div>
 
-                </div>
 
+        <div class="dashboard-card">
 
-                <div class="stat-card">
+            <span>
+                Out of Stock
+            </span>
 
-                    <span>
-                        Out of Stock
-                    </span>
+            <strong id="outOfStock">
+                0
+            </strong>
 
-                    <b id="outOfStock">
-                        0
-                    </b>
+        </div>
 
-                </div>
+    </div>
 
-            </div>
 
 
+    <!-- INVENTORY OVERVIEW -->
 
-            <h3>
-                Inventory Overview
-            </h3>
+    <div class="inventory-overview">
 
+        <h2>
+            Inventory Overview
+        </h2>
 
-            <div class="action-grid">
 
-                <button
-                    class="menu-btn"
-                    data-page="productsPage"
-                >
-                    Products
-                </button>
+        <div class="overview-buttons">
 
-
-                <button
-                    class="menu-btn"
-                    data-page="addPage"
-                >
-                    Add Product
-                </button>
-
-
-                <button
-                    class="menu-btn"
-                    data-page="stockPage"
-                >
-                    Stock In
-                </button>
-
-
-                <button
-                    class="menu-btn"
-                    data-page="productsPage"
-                    data-filter="low"
-                >
-                    Low Stock
-                </button>
-
-            </div>
-
-
-            <div class="security-note">
-
-                <b>
-                    Security controls active:
-                </b>
-
-                Role-based access, login attempt lockout,
-                session timeout, password verification for
-                system settings, input validation, and audit logging.
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             ADD PRODUCT
-        ================================================== -->
-
-        <section
-            id="addPage"
-            class="page hidden"
-        >
-
-            <div class="page-heading">
-
-                <h2>
-                    Add Product
-                </h2>
-
-                <button
-                    class="back-btn"
-                    data-page="dashboardPage"
-                >
-                    Back
-                </button>
-
-            </div>
-
-
-            <form
-                id="productForm"
-                class="form-card"
+            <button
+                data-page="productsPage"
             >
-
-                <label for="productName">
-                    Product Name
-                </label>
-
-                <input
-                    id="productName"
-                    type="text"
-                    placeholder="Enter Product Name"
-                    required
-                >
-
-
-                <label for="category">
-                    Category
-                </label>
-
-                <select
-                    id="category"
-                    required
-                >
-
-                    <option value="">
-                        Select Category
-                    </option>
-
-                    <option value="Cake">
-                        Cake
-                    </option>
-
-                    <option value="Bread">
-                        Bread
-                    </option>
-
-                    <option value="Pastry">
-                        Pastry
-                    </option>
-
-                    <option value="Cookie">
-                        Cookie
-                    </option>
-
-                    <option value="Ingredient">
-                        Ingredient
-                    </option>
-
-                    <option value="Beverage">
-                        Beverage
-                    </option>
-
-                    <option value="Other">
-                        Other
-                    </option>
-
-                </select>
-
-
-                <label for="unit">
-                    Unit
-                </label>
-
-                <select
-                    id="unit"
-                    required
-                >
-
-                    <option value="pcs">
-                        pcs
-                    </option>
-
-                    <option value="kg">
-                        kg
-                    </option>
-
-                    <option value="g">
-                        g
-                    </option>
-
-                    <option value="box">
-                        box
-                    </option>
-
-                    <option value="pack">
-                        pack
-                    </option>
-
-                    <option value="tray">
-                        tray
-                    </option>
-
-                    <option value="bottle">
-                        bottle
-                    </option>
-
-                    <option value="liter">
-                        liter
-                    </option>
-
-                </select>
-
-
-                <label for="costPrice">
-                    Cost Price
-                </label>
-
-                <input
-                    id="costPrice"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter Cost Price"
-                    required
-                >
-
-
-                <label for="sellingPrice">
-                    Selling Price
-                </label>
-
-                <input
-                    id="sellingPrice"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter Selling Price"
-                    required
-                >
-
-
-                <label for="initialStock">
-                    Initial Stock
-                </label>
-
-                <input
-                    id="initialStock"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter Initial Stock"
-                    required
-                >
-
-
-                <label for="reorderLevel">
-                    Reorder Level
-                </label>
-
-                <input
-                    id="reorderLevel"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value="5"
-                    required
-                >
-
-
-                <div class="form-actions">
-
-                    <button
-                        type="button"
-                        class="secondary-btn"
-                        data-page="dashboardPage"
-                    >
-                        CANCEL
-                    </button>
-
-
-                    <button
-                        type="submit"
-                        class="primary-btn"
-                    >
-                        SAVE PRODUCT
-                    </button>
-
-                </div>
-
-            </form>
-
-        </section>
-
-
-
-        <!-- =================================================
-             PRODUCTS
-        ================================================== -->
-
-        <section
-            id="productsPage"
-            class="page hidden"
-        >
-
-            <div class="page-heading">
-
-                <h2>
-                    Products
-                </h2>
-
-                <button
-                    class="back-btn"
-                    data-page="dashboardPage"
-                >
-                    Back
-                </button>
-
-            </div>
-
-
-            <div class="search-row">
-
-                <input
-                    id="searchProducts"
-                    type="search"
-                    placeholder="Search Products"
-                >
-
-
-                <button
-                    id="refreshProducts"
-                    class="secondary-btn"
-                >
-                    Refresh
-                </button>
-
-            </div>
-
-
-            <div
-                id="productList"
-                class="product-list"
-            ></div>
+                Products
+            </button>
 
 
             <button
-                class="floating-add"
                 data-page="addPage"
-                title="Add Product"
             >
-                +
+                Add Product
             </button>
 
-        </section>
 
-
-
-        <!-- =================================================
-             STOCK IN
-        ================================================== -->
-
-        <section
-            id="stockPage"
-            class="page hidden"
-        >
-
-            <div class="page-heading">
-
-                <h2>
-                    Stock In
-                </h2>
-
-                <button
-                    class="back-btn"
-                    data-page="dashboardPage"
-                >
-                    Back
-                </button>
-
-            </div>
-
-
-            <div class="form-card">
-
-                <label for="stockProduct">
-                    Product
-                </label>
-
-                <select
-                    id="stockProduct"
-                ></select>
-
-
-                <label for="stockAmount">
-                    Quantity to Add
-                </label>
-
-                <input
-                    id="stockAmount"
-                    type="number"
-                    min="0.01"
-                    step="0.01"
-                    placeholder="Enter quantity"
-                >
-
-
-                <button
-                    id="stockInBtn"
-                    class="primary-btn full-btn"
-                >
-                    STOCK IN
-                </button>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             SYSTEM SETTINGS
-        ================================================== -->
-
-        <section
-            id="settingsPage"
-            class="page hidden"
-        >
-
-            <div class="page-heading">
-
-                <h2>
-                    System Settings
-                </h2>
-
-                <button
-                    class="back-btn"
-                    data-page="dashboardPage"
-                >
-                    Back
-                </button>
-
-            </div>
-
-
-            <form
-                id="settingsForm"
-                class="form-card"
+            <button
+                data-page="stockPage"
             >
-
-                <label for="settingsReorder">
-                    Reorder Level (%)
-                </label>
-
-                <input
-                    id="settingsReorder"
-                    type="number"
-                    min="0"
-                    max="100"
-                    required
-                >
+                Stock In
+            </button>
 
 
-                <label for="settingsLow">
-                    Low Stock Alert Threshold
-                </label>
+            <button
+                data-page="productsPage"
+                data-filter="low"
+            >
+                Low Stock
+            </button>
 
-                <input
-                    id="settingsLow"
-                    type="number"
-                    min="0"
-                    required
-                >
+        </div>
 
-
-                <label for="settingsUnit">
-                    Default Unit
-                </label>
-
-                <select
-                    id="settingsUnit"
-                >
-
-                    <option value="pcs">
-                        pcs
-                    </option>
-
-                    <option value="kg">
-                        kg
-                    </option>
-
-                    <option value="g">
-                        g
-                    </option>
-
-                    <option value="box">
-                        box
-                    </option>
-
-                    <option value="pack">
-                        pack
-                    </option>
-
-                    <option value="tray">
-                        tray
-                    </option>
-
-                    <option value="bottle">
-                        bottle
-                    </option>
-
-                    <option value="liter">
-                        liter
-                    </option>
-
-                </select>
-
-
-                <div class="warning-box">
-
-                    <b>
-                        Authorization Required
-                    </b>
-
-                    <br>
-
-                    System-wide configuration changes require
-                    the Inventory Manager's current password.
-                    All changes are recorded in the audit log.
-
-                </div>
-
-
-                <label for="currentPassword">
-                    Current Password
-                </label>
-
-                <input
-                    id="currentPassword"
-                    type="password"
-                    placeholder="Enter Current Password"
-                    required
-                >
-
-
-                <div class="form-actions">
-
-                    <button
-                        type="button"
-                        class="secondary-btn"
-                        data-page="dashboardPage"
-                    >
-                        CANCEL
-                    </button>
-
-
-                    <button
-                        type="submit"
-                        class="primary-btn"
-                    >
-                        CONFIRM
-                    </button>
-
-                </div>
-
-            </form>
-
-
-            <div class="audit-card">
-
-                <h3>
-                    Recent Changes
-                </h3>
-
-                <div id="auditList"></div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-
-    <!-- =====================================================
-         BOTTOM NAVIGATION
-    ====================================================== -->
-
-    <nav class="bottom-nav">
-
-        <button
-            data-page="dashboardPage"
-        >
-            Home
-        </button>
-
-
-        <button
-            data-page="productsPage"
-        >
-            Products
-        </button>
-
-
-        <button
-            data-page="addPage"
-        >
-            Add
-        </button>
-
-
-        <button
-            data-page="settingsPage"
-        >
-            Settings
-        </button>
-
-    </nav>
+    </div>
 
 </section>
+
+
+
+<!-- =====================================================
+     PRODUCTS PAGE
+===================================================== -->
+
+<section
+    id="productsPage"
+    class="page hidden"
+>
+
+
+    <!-- HOME BESIDE BACK -->
+
+    <div class="page-heading">
+
+        <div class="page-title-group">
+
+            <h1>
+                Products
+            </h1>
+
+        </div>
+
+
+        <div class="page-navigation">
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Home
+            </button>
+
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-row">
+
+        <input
+            type="text"
+            id="searchProducts"
+            placeholder="Search Products"
+        >
+
+
+        <button
+            id="refreshProducts"
+            class="secondary-btn"
+        >
+            Refresh
+        </button>
+
+    </div>
+
+
+    <!-- PRODUCT LIST -->
+
+    <div
+        id="productList"
+        class="product-list"
+    ></div>
+
+
+    <!-- FLOATING ADD -->
+
+    <button
+        data-page="addPage"
+        class="floating-add"
+        title="Add Product"
+    >
+        +
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     ADD PRODUCT PAGE
+===================================================== -->
+
+<section
+    id="addPage"
+    class="page hidden"
+>
+
+
+    <!-- HOME BESIDE BACK -->
+
+    <div class="page-heading">
+
+        <h1>
+            Add Product
+        </h1>
+
+
+        <div class="page-navigation">
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Home
+            </button>
+
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADD PRODUCT FORM -->
+
+    <form
+        id="productForm"
+        class="form-card"
+    >
+
+
+        <label for="productName">
+            Product Name
+        </label>
+
+        <input
+            type="text"
+            id="productName"
+            placeholder="Enter Product Name"
+            required
+        >
+
+
+        <label for="category">
+            Category
+        </label>
+
+        <select
+            id="category"
+            required
+        >
+
+            <option value="">
+                Select Category
+            </option>
+
+            <option value="Cake">
+                Cake
+            </option>
+
+            <option value="Bread">
+                Bread
+            </option>
+
+            <option value="Pastry">
+                Pastry
+            </option>
+
+            <option value="Cookie">
+                Cookie
+            </option>
+
+            <option value="Beverage">
+                Beverage
+            </option>
+
+            <option value="Ingredient">
+                Ingredient
+            </option>
+
+        </select>
+
+
+        <label for="unit">
+            Unit
+        </label>
+
+        <select
+            id="unit"
+            required
+        >
+
+            <option value="pcs">
+                pcs
+            </option>
+
+            <option value="box">
+                box
+            </option>
+
+            <option value="tray">
+                tray
+            </option>
+
+            <option value="kg">
+                kg
+            </option>
+
+            <option value="g">
+                g
+            </option>
+
+            <option value="liter">
+                liter
+            </option>
+
+        </select>
+
+
+        <label for="costPrice">
+            Cost Price
+        </label>
+
+        <input
+            type="number"
+            id="costPrice"
+            min="0"
+            step="0.01"
+            placeholder="Enter Cost Price"
+            required
+        >
+
+
+        <label for="sellingPrice">
+            Selling Price
+        </label>
+
+        <input
+            type="number"
+            id="sellingPrice"
+            min="0"
+            step="0.01"
+            placeholder="Enter Selling Price"
+            required
+        >
+
+
+        <label for="initialStock">
+            Initial Stock
+        </label>
+
+        <input
+            type="number"
+            id="initialStock"
+            min="0"
+            placeholder="Enter Initial Stock"
+            required
+        >
+
+
+        <label for="reorderLevel">
+            Reorder Level
+        </label>
+
+        <input
+            type="number"
+            id="reorderLevel"
+            min="0"
+            value="5"
+            required
+        >
+
+
+        <div class="form-buttons">
+
+            <button
+                type="button"
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                CANCEL
+            </button>
+
+
+            <button
+                type="submit"
+                class="primary-btn"
+            >
+                SAVE PRODUCT
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+
+
+<!-- =====================================================
+     STOCK IN PAGE
+===================================================== -->
+
+<section
+    id="stockPage"
+    class="page hidden"
+>
+
+
+    <!-- HOME BESIDE BACK -->
+
+    <div class="page-heading">
+
+        <h1>
+            Stock In
+        </h1>
+
+
+        <div class="page-navigation">
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Home
+            </button>
+
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-card">
+
+
+        <label for="stockProduct">
+            Select Product
+        </label>
+
+        <select
+            id="stockProduct"
+        >
+
+        </select>
+
+
+        <label for="stockAmount">
+            Quantity to Add
+        </label>
+
+        <input
+            type="number"
+            id="stockAmount"
+            min="1"
+            placeholder="Enter Quantity"
+        >
+
+
+        <button
+            id="stockInBtn"
+            class="primary-btn stock-btn"
+        >
+            STOCK IN
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SETTINGS PAGE
+===================================================== -->
+
+<section
+    id="settingsPage"
+    class="page hidden"
+>
+
+
+    <!-- HOME BESIDE BACK -->
+
+    <div class="page-heading">
+
+        <h1>
+            System Settings
+        </h1>
+
+
+        <div class="page-navigation">
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Home
+            </button>
+
+
+            <button
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SETTINGS FORM -->
+
+    <form
+        id="settingsForm"
+        class="form-card"
+    >
+
+
+        <label for="settingsReorder">
+            Reorder Level (%)
+        </label>
+
+        <input
+            type="number"
+            id="settingsReorder"
+            min="0"
+            required
+        >
+
+
+        <label for="settingsLow">
+            Low Stock Alert Threshold
+        </label>
+
+        <input
+            type="number"
+            id="settingsLow"
+            min="0"
+            required
+        >
+
+
+        <label for="settingsUnit">
+            Default Unit
+        </label>
+
+        <select
+            id="settingsUnit"
+            required
+        >
+
+            <option value="pcs">
+                pcs
+            </option>
+
+            <option value="box">
+                box
+            </option>
+
+            <option value="tray">
+                tray
+            </option>
+
+            <option value="kg">
+                kg
+            </option>
+
+            <option value="g">
+                g
+            </option>
+
+            <option value="liter">
+                liter
+            </option>
+
+        </select>
+
+
+        <!-- AUTHORIZATION -->
+
+        <div class="authorization-box">
+
+            <strong>
+                Authorization Required
+            </strong>
+
+            <p>
+                System-wide configuration changes require
+                the Inventory Manager's current password.
+            </p>
+
+        </div>
+
+
+        <label for="currentPassword">
+            Current Password
+        </label>
+
+        <input
+            type="password"
+            id="currentPassword"
+            placeholder="Enter Current Password"
+            required
+        >
+
+
+        <div class="form-buttons">
+
+            <button
+                type="button"
+                data-page="dashboardPage"
+                class="secondary-btn"
+            >
+                CANCEL
+            </button>
+
+
+            <button
+                type="submit"
+                class="primary-btn"
+            >
+                CONFIRM
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+
+</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     TOAST MESSAGE
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
 
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
