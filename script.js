@@ -8,7 +8,6 @@ let auditCache = [];
 
 let otpChallenge = '';
 
-
 function $(id) {
     return document.getElementById(id);
 }
