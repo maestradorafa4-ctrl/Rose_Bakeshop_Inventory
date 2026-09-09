@@ -1,5 +1,5 @@
 const API_URL =
-    'https://script.google.com/macros/s/AKfycbyZb9lEOyMy9VrYFhtDEUzrFU8vWzPtOfcVglMsdolWhn-exjPfDG6nAjNBUbpcLDHngg/exec';
+    'https://script.google.com/macros/s/AKfycbxFyeuen8Q5OdbgHJM-Nk9hwlr1DsqZp1prstsLgXM15Oque2f_j5wdeiusb1zO5tIrXA/exec';
 
 
 let productsCache = [];
