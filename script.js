@@ -1,200 +1,23 @@
-/* =====================================================
-   ROSE BAKESHOP INVENTORY
-===================================================== */
-
-
-/* =====================================================
-   GOOGLE APPS SCRIPT URL
-===================================================== */
-
 const API_URL =
-    'https://script.google.com/macros/s/AKfycbxaxpe4XeMpJ4lxKy8NOseO5mzrkRVUP3ww9-1i2JsSQIYcqeWSYTnKcoWhbFwMGpsl/exec';
+    'https://script.google.com/macros/s/AKfycbyI7vErU8EDJVOk2HSavIeJ-6iBgNzQU8PqfjtBPkS4o0nDMyyq2EjO6kcyVC5l1RH_9A/exec';
 
-
-/* =====================================================
-   GLOBAL VARIABLES
-===================================================== */
 
 let productsCache = [];
 
-let lowStockFilter = false;
+let auditCache = [];
 
+let otpChallenge = '';
 
-/* =====================================================
-   SHORTCUT
-===================================================== */
 
-const $ = id =>
-    document.getElementById(id);
+function $(id) {
+    return document.getElementById(id);
+}
 
 
-/* =====================================================
-   START
-===================================================== */
-
-document.addEventListener(
-    'DOMContentLoaded',
-    () => {
-
-        bindEvents();
-
-
-        if (
-            sessionStorage.getItem(
-                'roseToken'
-            )
-        ) {
-
-            showApp();
-
-            showPage(
-                'dashboardPage'
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   EVENTS
-===================================================== */
-
-function bindEvents() {
-
-
-    /* LOGIN */
-
-    $('loginForm')
-        .addEventListener(
-            'submit',
-            login
-        );
-
-
-    /* LOGOUT */
-
-    $('logoutBtn')
-        .addEventListener(
-            'click',
-            logout
-        );
-
-
-    /* FORGOT PASSWORD */
-
-    $('forgotBtn')
-        .addEventListener(
-            'click',
-            () => {
-
-                showToast(
-
-                    'Please contact the system administrator to reset your password.',
-
-                    true
-
-                );
-
-            }
-        );
-
-
-    /* ALL PAGE BUTTONS */
-
-    document
-        .querySelectorAll(
-            '[data-page]'
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    'click',
-                    () => {
-
-                        const page =
-                            button.dataset.page;
-
-
-                        lowStockFilter =
-                            button.dataset.filter ===
-                            'low';
-
-
-                        showPage(
-                            page
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    /* ADD PRODUCT */
-
-    $('productForm')
-        .addEventListener(
-            'submit',
-            addProduct
-        );
-
-
-    /* SETTINGS */
-
-    $('settingsForm')
-        .addEventListener(
-            'submit',
-            updateSettings
-        );
-
-
-    /* REFRESH */
-
-    $('refreshProducts')
-        .addEventListener(
-            'click',
-            () => {
-
-                loadProducts();
-
-            }
-        );
-
-
-    /* SEARCH */
-
-    $('searchProducts')
-        .addEventListener(
-            'input',
-            () => {
-
-                lowStockFilter =
-                    false;
-
-
-                loadProducts(
-
-                    $('searchProducts')
-                        .value
-
-                );
-
-            }
-        );
-
-
-    /* STOCK IN */
-
-    $('stockInBtn')
-        .addEventListener(
-            'click',
-            stockIn
-        );
-
+function token() {
+    return sessionStorage.getItem(
+        'roseToken'
+    );
 }
 
 
@@ -206,22 +29,6 @@ async function api(
     action,
     data = {}
 ) {
-
-
-    if (
-        API_URL.includes(
-            'PASTE_YOUR'
-        )
-    ) {
-
-        throw new Error(
-
-            'Please add your Google Apps Script Web App URL to script.js.'
-
-        );
-
-    }
-
 
     const payload =
         new URLSearchParams();
@@ -239,13 +46,10 @@ async function api(
         ([key, value]) => {
 
             payload.set(
-
                 key,
-
                 value == null
                     ? ''
                     : String(value)
-
             );
 
         }
@@ -261,11 +65,11 @@ async function api(
             await fetch(
                 API_URL,
                 {
+                    method:
+                        'POST',
 
-                    method: 'POST',
-
-                    body: payload
-
+                    body:
+                        payload
                 }
             );
 
@@ -274,9 +78,7 @@ async function api(
     catch (error) {
 
         throw new Error(
-
             'Unable to connect to the inventory server.'
-
         );
 
     }
@@ -301,9 +103,7 @@ async function api(
     catch (error) {
 
         throw new Error(
-
             'The Apps Script server did not return valid JSON.'
-
         );
 
     }
@@ -313,17 +113,97 @@ async function api(
         !result.ok
     ) {
 
-        throw new Error(
+        const error =
+            new Error(
+                result.error ||
+                'Request failed.'
+            );
 
-            result.error ||
-            'Request failed.'
 
-        );
+        error.attemptsRemaining =
+            result.attemptsRemaining;
+
+
+        error.locked =
+            result.locked;
+
+
+        throw error;
 
     }
 
 
     return result;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(
+    message,
+    error = false
+) {
+
+    const toast =
+        $('toast');
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        'show'
+    );
+
+
+    if (error) {
+
+        toast.style.background =
+            '#b13a3a';
+
+    }
+
+    else {
+
+        toast.style.background =
+            '#2d2420';
+
+    }
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    'show'
+                );
+
+            },
+            3500
+        );
+
+}
+
+
+function handleError(
+    error
+) {
+
+    showToast(
+        error.message ||
+        'Something went wrong.',
+        true
+    );
 
 }
 
@@ -350,17 +230,21 @@ async function login(
             .value;
 
 
+    const email =
+        $('email')
+            .value
+            .trim();
+
+
     if (
         !username ||
-        !password
+        !password ||
+        !email
     ) {
 
         showToast(
-
-            'Enter your username and password.',
-
+            'Enter username, password, and Gmail.',
             true
-
         );
 
         return;
@@ -372,44 +256,146 @@ async function login(
 
         const result =
             await api(
-
                 'login',
-
                 {
-
                     username:
                         username,
 
                     password:
-                        password
+                        password,
 
+                    email:
+                        email
                 }
+            );
 
+
+        otpChallenge =
+            result.challengeId;
+
+
+        $('loginStep')
+            .classList
+            .add(
+                'hidden'
+            );
+
+
+        $('otpStep')
+            .classList
+            .remove(
+                'hidden'
+            );
+
+
+        $('otpMessage')
+            .textContent =
+            'OTP sent to ' +
+            result.maskedEmail +
+            '. It expires in 5 minutes.';
+
+
+        $('otpAttempts')
+            .textContent =
+            result.attemptsRemaining +
+            ' OTP attempts available';
+
+
+        $('otp')
+            .focus();
+
+
+        showToast(
+            'Verification code sent to your Gmail.'
+        );
+
+    }
+
+    catch (error) {
+
+        if (
+            error.attemptsRemaining !==
+            undefined
+        ) {
+
+            $('attempts')
+                .textContent =
+                error.attemptsRemaining +
+                ' login attempts remaining';
+
+        }
+
+
+        handleError(
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   OTP
+===================================================== */
+
+async function verifyOtp(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const otp =
+        $('otp')
+            .value
+            .trim();
+
+
+    if (
+        !/^\d{6}$/.test(otp)
+    ) {
+
+        showToast(
+            'Enter the 6-digit OTP.',
+            true
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const result =
+            await api(
+                'verifyOtp',
+                {
+                    challengeId:
+                        otpChallenge,
+
+                    otp:
+                        otp
+                }
             );
 
 
         sessionStorage.setItem(
-
             'roseToken',
-
             result.token
-
         );
 
 
         sessionStorage.setItem(
-
             'roseUser',
-
             JSON.stringify(
                 result.user
             )
-
         );
 
 
-        $('password')
-            .value =
+        otpChallenge =
             '';
 
 
@@ -432,18 +418,22 @@ async function login(
 
     catch (error) {
 
-        showToast(
+        if (
+            error.attemptsRemaining !==
+            undefined
+        ) {
 
-            error.message,
+            $('otpAttempts')
+                .textContent =
+                error.attemptsRemaining +
+                ' OTP attempts remaining';
 
-            true
+        }
 
+
+        handleError(
+            error
         );
-
-
-        $('attempts')
-            .textContent =
-            error.message;
 
     }
 
@@ -451,37 +441,63 @@ async function login(
 
 
 /* =====================================================
-   SHOW APP
+   SHOW / HIDE
 ===================================================== */
 
 function showApp() {
 
     $('loginScreen')
         .classList
-        .add('hidden');
+        .add(
+            'hidden'
+        );
 
 
     $('appScreen')
         .classList
-        .remove('hidden');
+        .remove(
+            'hidden'
+        );
 
 }
 
-
-/* =====================================================
-   SHOW LOGIN
-===================================================== */
 
 function showLogin() {
 
     $('appScreen')
         .classList
-        .add('hidden');
+        .add(
+            'hidden'
+        );
 
 
     $('loginScreen')
         .classList
-        .remove('hidden');
+        .remove(
+            'hidden'
+        );
+
+
+    $('loginStep')
+        .classList
+        .remove(
+            'hidden'
+        );
+
+
+    $('otpStep')
+        .classList
+        .add(
+            'hidden'
+        );
+
+
+    $('password')
+        .value = '';
+
+
+    $('otp')
+        .value = '';
 
 }
 
@@ -492,25 +508,18 @@ function showLogin() {
 
 async function logout() {
 
-    const token =
-        sessionStorage.getItem(
-            'roseToken'
-        );
-
-
     try {
 
-        if (token) {
+        if (
+            token()
+        ) {
 
             await api(
-
                 'logout',
-
                 {
                     token:
-                        token
+                        token()
                 }
-
             );
 
         }
@@ -519,7 +528,9 @@ async function logout() {
 
     catch (error) {
 
-        /* Continue local logout */
+        console.log(
+            error
+        );
 
     }
 
@@ -528,11 +539,6 @@ async function logout() {
 
 
     showLogin();
-
-
-    $('attempts')
-        .textContent =
-        'Login Attempts Remaining: 5';
 
 
     showToast(
@@ -547,9 +553,8 @@ async function logout() {
 ===================================================== */
 
 function showPage(
-    pageId
+    id
 ) {
-
 
     document
         .querySelectorAll(
@@ -566,38 +571,62 @@ function showPage(
         );
 
 
-    const page =
-        $(pageId);
+    $(id)
+        .classList
+        .remove(
+            'hidden'
+        );
 
 
-    if (!page) {
+    const titles = {
 
-        return;
+        dashboardPage:
+            'Dashboard',
 
-    }
+        productsPage:
+            'Products',
+
+        addPage:
+            'Add Product',
+
+        stockPage:
+            'Stock In',
+
+        editPage:
+            'Edit Product',
+
+        settingsPage:
+            'Settings'
+
+    };
 
 
-    page.classList.remove(
-        'hidden'
-    );
+    $('pageTitle')
+        .textContent =
+        titles[id] ||
+        'Dashboard';
 
 
-    /* DASHBOARD */
+    document
+        .querySelectorAll(
+            '.bottom-nav button'
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+                    'active',
+
+                    button.dataset.page ===
+                    id
+                );
+
+            }
+        );
+
 
     if (
-        pageId ===
-        'dashboardPage'
-    ) {
-
-        loadDashboard();
-
-    }
-
-
-    /* PRODUCTS */
-
-    if (
-        pageId ===
+        id ===
         'productsPage'
     ) {
 
@@ -606,26 +635,27 @@ function showPage(
     }
 
 
-    /* STOCK */
-
     if (
-        pageId ===
+        id ===
         'stockPage'
     ) {
 
-        loadStockProducts();
+        loadProducts()
+            .then(
+                loadStockProducts
+            );
 
     }
 
 
-    /* SETTINGS */
-
     if (
-        pageId ===
+        id ===
         'settingsPage'
     ) {
 
         loadSettings();
+
+        loadAuditLogs();
 
     }
 
@@ -642,45 +672,60 @@ async function loadDashboard() {
 
         const result =
             await api(
-
                 'dashboard',
-
                 {
-
                     token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        )
-
+                        token()
                 }
-
             );
 
 
         $('totalProducts')
             .textContent =
-            result.summary.totalProducts;
+            result.totalProducts;
 
 
-        $('totalStocks')
+        $('totalItems')
             .textContent =
-            result.summary.totalStocks;
+            result.totalItems;
 
 
-        $('lowItems')
+        $('lowStock')
             .textContent =
-            result.summary.lowItems;
+            result.lowStock;
 
 
         $('outOfStock')
             .textContent =
-            result.summary.outOfStock;
+            result.outOfStock;
+
+
+        $('inventoryValue')
+            .textContent =
+            '₱' +
+            Number(
+                result.inventoryValue ||
+                0
+            )
+            .toLocaleString(
+                'en-PH',
+                {
+                    minimumFractionDigits:
+                        2
+                }
+            );
+
+
+        renderNotifications(
+            result.notifications ||
+            []
+        );
 
     }
 
     catch (error) {
 
-        handleApiError(
+        handleError(
             error
         );
 
@@ -701,57 +746,31 @@ async function loadProducts(
 
         const result =
             await api(
-
                 'products',
-
                 {
-
                     token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
+                        token(),
 
                     search:
                         search
-
                 }
-
             );
 
 
         productsCache =
-            result.products;
-
-
-        let products =
-            productsCache;
-
-
-        if (
-            lowStockFilter
-        ) {
-
-            products =
-                products.filter(
-
-                    product =>
-                        product.stockStatus ===
-                        'Low Stock'
-
-                );
-
-        }
+            result.products ||
+            [];
 
 
         renderProducts(
-            products
+            productsCache
         );
 
     }
 
     catch (error) {
 
-        handleApiError(
+        handleError(
             error
         );
 
@@ -760,79 +779,24 @@ async function loadProducts(
 }
 
 
-/* =====================================================
-   PRODUCT ICON
-===================================================== */
-
-function getProductImage(
+function productIcon(
     product
 ) {
 
-    const name =
-        String(
-            product.productName || ''
-        )
-        .toLowerCase();
-
-
-    const category =
-        String(
-            product.category || ''
+    const text =
+        (
+            product.category +
+            ' ' +
+            product.productName
         )
         .toLowerCase();
 
 
     if (
-        name.includes(
-            'cupcake'
-        )
-    ) {
-
-        return '🧁';
-
-    }
-
-
-    if (
-        name.includes(
-            'ensaymada'
-        )
-    ) {
-
-        return '🥐';
-
-    }
-
-
-    if (
-        name.includes(
-            'cake'
-        )
-
-        ||
-
-        category ===
-        'cake'
-    ) {
-
-        return '🍰';
-
-    }
-
-
-    if (
-        category ===
-        'bread'
-
-        ||
-
-        name.includes(
+        text.includes(
             'bread'
-        )
-
-        ||
-
-        name.includes(
+        ) ||
+        text.includes(
             'pandesal'
         )
     ) {
@@ -843,24 +807,13 @@ function getProductImage(
 
 
     if (
-        category ===
-        'pastry'
-
-        ||
-
-        name.includes(
+        text.includes(
+            'pastry'
+        ) ||
+        text.includes(
             'croissant'
-        )
-
-        ||
-
-        name.includes(
-            'danish'
-        )
-
-        ||
-
-        name.includes(
+        ) ||
+        text.includes(
             'pie'
         )
     ) {
@@ -871,12 +824,7 @@ function getProductImage(
 
 
     if (
-        category ===
-        'cookie'
-
-        ||
-
-        name.includes(
+        text.includes(
             'cookie'
         )
     ) {
@@ -887,24 +835,13 @@ function getProductImage(
 
 
     if (
-        category ===
-        'beverage'
-
-        ||
-
-        name.includes(
+        text.includes(
             'coffee'
-        )
-
-        ||
-
-        name.includes(
+        ) ||
+        text.includes(
             'juice'
-        )
-
-        ||
-
-        name.includes(
+        ) ||
+        text.includes(
             'drink'
         )
     ) {
@@ -915,8 +852,9 @@ function getProductImage(
 
 
     if (
-        category ===
-        'ingredient'
+        text.includes(
+            'ingredient'
+        )
     ) {
 
         return '🧈';
@@ -929,9 +867,38 @@ function getProductImage(
 }
 
 
-/* =====================================================
-   RENDER PRODUCTS
-===================================================== */
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ??
+        ''
+    )
+    .replace(
+        /[&<>'"]/g,
+        character => ({
+
+            '&':
+                '&amp;',
+
+            '<':
+                '&lt;',
+
+            '>':
+                '&gt;',
+
+            "'":
+                '&#39;',
+
+            '"':
+                '&quot;'
+
+        }[character])
+    );
+
+}
+
 
 function renderProducts(
     products
@@ -945,15 +912,8 @@ function renderProducts(
         !products.length
     ) {
 
-        list.innerHTML = `
-
-            <div class="form-card">
-
-                No products found.
-
-            </div>
-
-        `;
+        list.innerHTML =
+            '<div class="form-card">No products found.</div>';
 
         return;
 
@@ -961,162 +921,413 @@ function renderProducts(
 
 
     list.innerHTML =
-
         products
             .map(
                 product => {
 
-
-                    let statusClass =
-                        'in';
-
-
-                    if (
+                    const statusClass =
                         product.stockStatus ===
                         'Low Stock'
-                    ) {
-
-                        statusClass =
-                            'low';
-
-                    }
-
-
-                    if (
-                        product.stockStatus ===
-                        'Out of Stock'
-                    ) {
-
-                        statusClass =
-                            'out';
-
-                    }
-
-
-                    const productImage =
-                        getProductImage(
-                            product
-                        );
+                            ? 'low'
+                            : product.stockStatus ===
+                              'Out of Stock'
+                                ? 'out'
+                                : 'in';
 
 
                     return `
 
-                    <article
-                        class="product-item"
-                    >
+                        <article class="product-item">
 
-                        <div
-                            class="product-image"
-                        >
-
-                            <span
-                                style="
-                                    font-size: 30px;
-                                "
-                            >
-                                ${productImage}
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <div
-                                class="product-name"
-                            >
-
-                                ${escapeHtml(
-                                    product.productName
-                                )}
-
+                            <div class="product-image">
+                                <span>
+                                    ${productIcon(product)}
+                                </span>
                             </div>
 
+                            <div>
 
-                            <div
-                                class="product-meta"
-                            >
+                                <div class="product-name">
+                                    ${escapeHtml(
+                                        product.productName
+                                    )}
+                                </div>
 
-                                Category:
-                                ${escapeHtml(
-                                    product.category
-                                )}
+                                <div class="product-meta">
 
-                                ·
+                                    ${escapeHtml(
+                                        product.category
+                                    )}
 
-                                Stock:
-                                ${product.quantity}
+                                    · Stock:
+                                    ${product.quantity}
 
-                                ${escapeHtml(
-                                    product.unit
-                                )}
+                                    ${escapeHtml(
+                                        product.unit
+                                    )}
 
-                            </div>
+                                </div>
 
-
-                            <span
-                                class="status ${statusClass}"
-                            >
-
-                                ${escapeHtml(
-                                    product.stockStatus
-                                )}
-
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="product-right"
-                        >
-
-                            <div
-                                class="product-price"
-                            >
-
-                                ₱${Number(
-                                    product.price
-                                ).toFixed(2)}
-
-                            </div>
-
-
-                            <div
-                                class="product-actions"
-                            >
-
-                                <button
-                                    onclick="quickStockIn('${escapeHtml(product.id)}')"
+                                <span
+                                    class="status ${statusClass}"
                                 >
-                                    Stock In
-                                </button>
-
-
-                                <button
-                                    onclick="editProduct('${escapeHtml(product.id)}')"
-                                >
-                                    Edit
-                                </button>
-
-
-                                <button
-                                    onclick="removeProduct('${escapeHtml(product.id)}')"
-                                >
-                                    Delete
-                                </button>
+                                    ${escapeHtml(
+                                        product.stockStatus
+                                    )}
+                                </span>
 
                             </div>
 
-                        </div>
 
-                    </article>
+                            <div class="product-right">
+
+                                <div class="product-price">
+                                    ₱${Number(
+                                        product.price
+                                    ).toFixed(2)}
+                                </div>
+
+
+                                <div class="product-actions">
+
+                                    <button
+                                        onclick="openStockIn('${escapeHtml(product.id)}')"
+                                    >
+                                        Stock In
+                                    </button>
+
+
+                                    <button
+                                        onclick="openEdit('${escapeHtml(product.id)}')"
+                                    >
+                                        Edit
+                                    </button>
+
+
+                                    <button
+                                        class="delete"
+                                        onclick="removeProduct('${escapeHtml(product.id)}')"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </article>
 
                     `;
 
                 }
             )
             .join('');
+
+}
+
+
+/* =====================================================
+   STOCK IN
+===================================================== */
+
+function openStockIn(
+    id
+) {
+
+    showPage(
+        'stockPage'
+    );
+
+
+    setTimeout(
+        () => {
+
+            $('stockProduct')
+                .value =
+                id;
+
+
+            $('stockAmount')
+                .focus();
+
+        },
+        100
+    );
+
+}
+
+
+function loadStockProducts() {
+
+    const select =
+        $('stockProduct');
+
+
+    select.innerHTML =
+        '<option value="">Select product</option>' +
+
+        productsCache
+            .map(
+                product => `
+
+                    <option
+                        value="${escapeHtml(product.id)}"
+                    >
+
+                        ${escapeHtml(
+                            product.productName
+                        )}
+
+                        —
+                        ${product.quantity}
+                        ${escapeHtml(
+                            product.unit
+                        )}
+
+                    </option>
+
+                `
+            )
+            .join('');
+
+}
+
+
+async function stockIn(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const id =
+        $('stockProduct')
+            .value;
+
+
+    const amount =
+        $('stockAmount')
+            .value;
+
+
+    if (
+        !id ||
+        Number(amount) <= 0
+    ) {
+
+        showToast(
+            'Select a product and enter a valid quantity.',
+            true
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const result =
+            await api(
+                'stockIn',
+                {
+                    token:
+                        token(),
+
+                    id:
+                        id,
+
+                    amount:
+                        amount
+                }
+            );
+
+
+        showToast(
+            result.message
+        );
+
+
+        $('stockForm')
+            .reset();
+
+
+        await loadProducts();
+
+
+        await loadDashboard();
+
+
+        showPage(
+            'productsPage'
+        );
+
+    }
+
+    catch (error) {
+
+        handleError(
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+function openEdit(
+    id
+) {
+
+    const product =
+        productsCache.find(
+            item =>
+                String(
+                    item.id
+                ) ===
+                String(id)
+        );
+
+
+    if (!product) {
+        return;
+    }
+
+
+    $('editId')
+        .value =
+        product.id;
+
+
+    $('editProductName')
+        .value =
+        product.productName;
+
+
+    $('editCategory')
+        .value =
+        product.category;
+
+
+    $('editUnit')
+        .value =
+        product.unit;
+
+
+    $('editCostPrice')
+        .value =
+        product.costPrice ||
+        0;
+
+
+    $('editSellingPrice')
+        .value =
+        product.price ||
+        0;
+
+
+    $('editQuantity')
+        .value =
+        product.quantity;
+
+
+    $('editReorderLevel')
+        .value =
+        product.reorderLevel;
+
+
+    showPage(
+        'editPage'
+    );
+
+}
+
+
+async function saveEdit(
+    event
+) {
+
+    event.preventDefault();
+
+
+    try {
+
+        const result =
+            await api(
+                'updateProduct',
+                {
+
+                    token:
+                        token(),
+
+                    id:
+                        $('editId')
+                            .value,
+
+                    productName:
+                        $('editProductName')
+                            .value
+                            .trim(),
+
+                    category:
+                        $('editCategory')
+                            .value,
+
+                    unit:
+                        $('editUnit')
+                            .value,
+
+                    costPrice:
+                        $('editCostPrice')
+                            .value,
+
+                    quantity:
+                        $('editQuantity')
+                            .value,
+
+                    sellingPrice:
+                        $('editSellingPrice')
+                            .value,
+
+                    reorderLevel:
+                        $('editReorderLevel')
+                            .value
+
+                }
+            );
+
+
+        showToast(
+            result.message
+        );
+
+
+        await loadProducts(
+            $('searchProducts')
+                .value
+        );
+
+
+        await loadDashboard();
+
+
+        showPage(
+            'productsPage'
+        );
+
+    }
+
+    catch (error) {
+
+        handleError(
+            error
+        );
+
+    }
 
 }
 
@@ -1132,98 +1343,46 @@ async function addProduct(
     event.preventDefault();
 
 
-    const productName =
-        $('productName')
-            .value
-            .trim();
-
-
-    const category =
-        $('category')
-            .value;
-
-
-    const unit =
-        $('unit')
-            .value;
-
-
-    const costPrice =
-        $('costPrice')
-            .value;
-
-
-    const sellingPrice =
-        $('sellingPrice')
-            .value;
-
-
-    const initialStock =
-        $('initialStock')
-            .value;
-
-
-    const reorderLevel =
-        $('reorderLevel')
-            .value;
-
-
-    if (
-        !productName ||
-        !category ||
-        !unit
-    ) {
-
-        showToast(
-
-            'Please complete all required fields.',
-
-            true
-
-        );
-
-        return;
-
-    }
-
-
     try {
 
         const result =
             await api(
-
                 'addProduct',
-
                 {
 
                     token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
+                        token(),
 
                     productName:
-                        productName,
+                        $('productName')
+                            .value
+                            .trim(),
 
                     category:
-                        category,
+                        $('category')
+                            .value,
 
                     unit:
-                        unit,
+                        $('unit')
+                            .value,
 
                     costPrice:
-                        costPrice,
+                        $('costPrice')
+                            .value,
 
                     sellingPrice:
-                        sellingPrice,
+                        $('sellingPrice')
+                            .value,
 
                     initialStock:
-                        initialStock,
+                        $('initialStock')
+                            .value,
 
                     reorderLevel:
-                        reorderLevel
+                        $('reorderLevel')
+                            .value
 
                 }
-
             );
 
 
@@ -1236,9 +1395,20 @@ async function addProduct(
             .reset();
 
 
+        $('unit')
+            .value =
+            'kg';
+
+
         $('reorderLevel')
             .value =
-            5;
+            20;
+
+
+        await loadProducts();
+
+
+        await loadDashboard();
 
 
         showPage(
@@ -1249,7 +1419,7 @@ async function addProduct(
 
     catch (error) {
 
-        handleApiError(
+        handleError(
             error
         );
 
@@ -1259,451 +1429,7 @@ async function addProduct(
 
 
 /* =====================================================
-   LOAD STOCK PRODUCTS
-===================================================== */
-
-async function loadStockProducts() {
-
-    try {
-
-        const result =
-            await api(
-
-                'products',
-
-                {
-
-                    token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
-
-                    search:
-                        ''
-
-                }
-
-            );
-
-
-        const select =
-            $('stockProduct');
-
-
-        select.innerHTML =
-            '';
-
-
-        result.products.forEach(
-            product => {
-
-                const option =
-                    document.createElement(
-                        'option'
-                    );
-
-
-                option.value =
-                    product.id;
-
-
-                option.textContent =
-
-                    `${getProductImage(product)} ` +
-
-                    `${product.productName} — ` +
-
-                    `${product.quantity} ` +
-
-                    `${product.unit}`;
-
-
-                select.appendChild(
-                    option
-                );
-
-            }
-        );
-
-    }
-
-    catch (error) {
-
-        handleApiError(
-            error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   STOCK IN
-===================================================== */
-
-async function stockIn() {
-
-    const id =
-        $('stockProduct')
-            .value;
-
-
-    const amount =
-        $('stockAmount')
-            .value;
-
-
-    if (
-        !id
-    ) {
-
-        showToast(
-
-            'Please select a product.',
-
-            true
-
-        );
-
-        return;
-
-    }
-
-
-    if (
-        Number(amount) <= 0
-    ) {
-
-        showToast(
-
-            'Quantity must be greater than 0.',
-
-            true
-
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const result =
-            await api(
-
-                'stockIn',
-
-                {
-
-                    token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
-
-                    id:
-                        id,
-
-                    amount:
-                        amount
-
-                }
-
-            );
-
-
-        showToast(
-            result.message
-        );
-
-
-        $('stockAmount')
-            .value =
-            '';
-
-
-        await loadStockProducts();
-
-
-        await loadDashboard();
-
-    }
-
-    catch (error) {
-
-        handleApiError(
-            error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   QUICK STOCK IN
-===================================================== */
-
-async function quickStockIn(
-    id
-) {
-
-    const amount =
-        prompt(
-            'Enter quantity to add:'
-        );
-
-
-    if (
-        amount === null
-    ) {
-
-        return;
-
-    }
-
-
-    if (
-        Number(amount) <= 0
-    ) {
-
-        showToast(
-
-            'Quantity must be greater than 0.',
-
-            true
-
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const result =
-            await api(
-
-                'stockIn',
-
-                {
-
-                    token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
-
-                    id:
-                        id,
-
-                    amount:
-                        amount
-
-                }
-
-            );
-
-
-        showToast(
-            result.message
-        );
-
-
-        await loadProducts(
-            $('searchProducts').value
-        );
-
-
-        await loadDashboard();
-
-    }
-
-    catch (error) {
-
-        handleApiError(
-            error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   EDIT PRODUCT
-===================================================== */
-
-async function editProduct(
-    id
-) {
-
-    const product =
-        productsCache.find(
-
-            item =>
-                String(item.id) ===
-                String(id)
-
-        );
-
-
-    if (
-        !product
-    ) {
-
-        return;
-
-    }
-
-
-    const name =
-        prompt(
-
-            'Product Name:',
-
-            product.productName
-
-        );
-
-
-    if (
-        name === null
-    ) {
-
-        return;
-
-    }
-
-
-    const quantity =
-        prompt(
-
-            'Quantity:',
-
-            product.quantity
-
-        );
-
-
-    if (
-        quantity === null
-    ) {
-
-        return;
-
-    }
-
-
-    const price =
-        prompt(
-
-            'Selling Price:',
-
-            product.price
-
-        );
-
-
-    if (
-        price === null
-    ) {
-
-        return;
-
-    }
-
-
-    const reorder =
-        prompt(
-
-            'Reorder Level:',
-
-            product.reorderLevel
-
-        );
-
-
-    if (
-        reorder === null
-    ) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const result =
-            await api(
-
-                'updateProduct',
-
-                {
-
-                    token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
-
-                    id:
-                        product.id,
-
-                    productName:
-                        name,
-
-                    category:
-                        product.category,
-
-                    unit:
-                        product.unit,
-
-                    costPrice:
-                        product.costPrice || 0,
-
-                    quantity:
-                        quantity,
-
-                    sellingPrice:
-                        price,
-
-                    reorderLevel:
-                        reorder
-
-                }
-
-            );
-
-
-        showToast(
-            result.message
-        );
-
-
-        await loadProducts(
-            $('searchProducts').value
-        );
-
-
-        await loadDashboard();
-
-    }
-
-    catch (error) {
-
-        handleApiError(
-            error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   DELETE PRODUCT
+   DELETE
 ===================================================== */
 
 async function removeProduct(
@@ -1712,39 +1438,31 @@ async function removeProduct(
 
     const product =
         productsCache.find(
-
             item =>
-                String(item.id) ===
+                String(
+                    item.id
+                ) ===
                 String(id)
-
         );
 
 
-    if (
-        !product
-    ) {
-
+    if (!product) {
         return;
-
     }
 
 
     const confirmed =
         confirm(
 
-            `Delete "${product.productName}"?\n\n` +
+            `Delete "${product.productName}"?
 
-            'This action cannot be undone.'
+This action cannot be undone.`
 
         );
 
 
-    if (
-        !confirmed
-    ) {
-
+    if (!confirmed) {
         return;
-
     }
 
 
@@ -1752,21 +1470,16 @@ async function removeProduct(
 
         const result =
             await api(
-
                 'deleteProduct',
-
                 {
 
                     token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
+                        token(),
 
                     id:
                         id
 
                 }
-
             );
 
 
@@ -1776,17 +1489,21 @@ async function removeProduct(
 
 
         await loadProducts(
-            $('searchProducts').value
+            $('searchProducts')
+                .value
         );
 
 
         await loadDashboard();
 
+
+        await loadNotifications();
+
     }
 
     catch (error) {
 
-        handleApiError(
+        handleError(
             error
         );
 
@@ -1796,7 +1513,7 @@ async function removeProduct(
 
 
 /* =====================================================
-   LOAD SETTINGS
+   SETTINGS
 ===================================================== */
 
 async function loadSettings() {
@@ -1805,40 +1522,36 @@ async function loadSettings() {
 
         const result =
             await api(
-
                 'settings',
-
                 {
-
                     token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        )
-
+                        token()
                 }
-
             );
 
 
         $('settingsReorder')
             .value =
-            result.settings.reorderLevel;
+            result.settings
+                .reorderLevel;
 
 
         $('settingsLow')
             .value =
-            result.settings.lowStockThreshold;
+            result.settings
+                .lowStockThreshold;
 
 
         $('settingsUnit')
             .value =
-            result.settings.defaultUnit;
+            result.settings
+                .defaultUnit;
 
     }
 
     catch (error) {
 
-        handleApiError(
+        handleError(
             error
         );
 
@@ -1847,50 +1560,18 @@ async function loadSettings() {
 }
 
 
-/* =====================================================
-   UPDATE SETTINGS
-===================================================== */
-
-async function updateSettings(
+async function saveSettings(
     event
 ) {
 
     event.preventDefault();
 
 
-    const confirmed =
-        confirm(
-
-            'Are you sure you want to update these system settings?'
-
-        );
-
-
     if (
-        !confirmed
+        !confirm(
+            'Save these system-wide configuration changes?'
+        )
     ) {
-
-        return;
-
-    }
-
-
-    const currentPassword =
-        $('currentPassword')
-            .value;
-
-
-    if (
-        !currentPassword
-    ) {
-
-        showToast(
-
-            'Enter your current password.',
-
-            true
-
-        );
 
         return;
 
@@ -1901,31 +1582,35 @@ async function updateSettings(
 
         const result =
             await api(
-
                 'updateSettings',
-
                 {
 
                     token:
-                        sessionStorage.getItem(
-                            'roseToken'
-                        ),
+                        token(),
 
                     reorderLevel:
-                        $('settingsReorder').value,
+                        $('settingsReorder')
+                            .value,
 
                     lowStockThreshold:
-                        $('settingsLow').value,
+                        $('settingsLow')
+                            .value,
 
                     defaultUnit:
-                        $('settingsUnit').value,
+                        $('settingsUnit')
+                            .value,
 
                     currentPassword:
-                        currentPassword
+                        $('currentPassword')
+                            .value
 
                 }
-
             );
+
+
+        showToast(
+            result.message
+        );
 
 
         $('currentPassword')
@@ -1933,15 +1618,16 @@ async function updateSettings(
             '';
 
 
-        showToast(
-            result.message
-        );
+        await loadAuditLogs();
+
+
+        await loadDashboard();
 
     }
 
     catch (error) {
 
-        handleApiError(
+        handleError(
             error
         );
 
@@ -1951,146 +1637,470 @@ async function updateSettings(
 
 
 /* =====================================================
-   API ERROR
+   AUDIT LOGS
 ===================================================== */
 
-function handleApiError(
-    error
-) {
+async function loadAuditLogs() {
 
-    const message =
-        error.message ||
-        'Request failed.';
+    try {
+
+        const result =
+            await api(
+                'auditLogs',
+                {
+                    token:
+                        token()
+                }
+            );
 
 
-    const lower =
-        message.toLowerCase();
+        auditCache =
+            result.logs ||
+            [];
 
 
-    if (
-
-        lower.includes(
-            'session expired'
-        )
-
-        ||
-
-        lower.includes(
-            'unauthorized'
-        )
-
-        ||
-
-        lower.includes(
-            'access denied'
-        )
-
-    ) {
-
-        sessionStorage.clear();
-
-        showLogin();
+        renderAudit();
 
     }
 
+    catch (error) {
 
-    showToast(
-        message,
-        true
-    );
+        handleError(
+            error
+        );
+
+    }
+
+}
+
+
+function renderAudit() {
+
+    const filter =
+        $('auditFilter')
+            .value;
+
+
+    const rows =
+        auditCache.filter(
+            item => {
+
+                if (
+                    filter ===
+                    'ALL'
+                ) {
+
+                    return true;
+
+                }
+
+
+                return (
+
+                    item.action ===
+                    filter ||
+
+                    item.action.startsWith(
+                        filter +
+                        '_'
+                    )
+
+                );
+
+            }
+        );
+
+
+    $('auditList')
+        .innerHTML =
+
+        rows.length
+
+            ? rows
+                .map(
+                    item => `
+
+                        <div class="audit-row">
+
+                            <div class="audit-top">
+
+                                <span class="audit-action">
+
+                                    ${escapeHtml(
+                                        item.action
+                                            .replaceAll(
+                                                '_',
+                                                ' '
+                                            )
+                                    )}
+
+                                </span>
+
+                                <span>
+
+                                    ${new Date(
+                                        item.date
+                                    ).toLocaleString()}
+
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        item.username
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="audit-details">
+
+                                ${escapeHtml(
+                                    item.details
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `
+                )
+                .join('')
+
+            :
+
+            '<div class="audit-details">No audit records found.</div>';
 
 }
 
 
 /* =====================================================
-   TOAST
+   NOTIFICATIONS
 ===================================================== */
 
-function showToast(
-    message,
-    error = false
-) {
+async function loadNotifications() {
 
-    const toast =
-        $('toast');
+    try {
 
-
-    toast.textContent =
-        message;
-
-
-    toast.className =
-        'toast show';
+        const result =
+            await api(
+                'notifications',
+                {
+                    token:
+                        token()
+                }
+            );
 
 
-    if (
-        error
-    ) {
-
-        toast.classList.add(
-            'error'
+        renderNotifications(
+            result.notifications ||
+            []
         );
 
     }
 
+    catch (error) {
 
-    clearTimeout(
-        window.toastTimer
-    );
-
-
-    window.toastTimer =
-        setTimeout(
-
-            () => {
-
-                toast.className =
-                    'toast';
-
-            },
-
-            3500
-
+        handleError(
+            error
         );
+
+    }
+
+}
+
+
+function renderNotifications(
+    items
+) {
+
+    const box =
+        $('dashboardNotifications');
+
+
+    if (
+        !items.length
+    ) {
+
+        box.innerHTML =
+            '<div class="audit-details">No inventory notifications.</div>';
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        items
+            .slice(
+                0,
+                30
+            )
+            .map(
+                item => `
+
+                    <div
+                        class="notification ${
+                            item.read
+                                ? ''
+                                : 'unread'
+                        }"
+                    >
+
+                        <strong>
+
+                            ${escapeHtml(
+                                item.type
+                                    .replaceAll(
+                                        '_',
+                                        ' '
+                                    )
+                            )}
+
+                        </strong>
+
+
+                        <div>
+
+                            ${escapeHtml(
+                                item.message
+                            )}
+
+                        </div>
+
+
+                        <small>
+
+                            ${new Date(
+                                item.date
+                            ).toLocaleString()}
+
+                        </small>
+
+                    </div>
+
+                `
+            )
+            .join('');
+
+}
+
+
+async function markRead() {
+
+    try {
+
+        await api(
+            'markNotificationsRead',
+            {
+                token:
+                    token()
+            }
+        );
+
+
+        await loadNotifications();
+
+
+        showToast(
+            'Notifications marked as read.'
+        );
+
+    }
+
+    catch (error) {
+
+        handleError(
+            error
+        );
+
+    }
 
 }
 
 
 /* =====================================================
-   HTML SECURITY
+   START SYSTEM
 ===================================================== */
 
-function escapeHtml(
-    value
-) {
+document.addEventListener(
+    'DOMContentLoaded',
+    () => {
 
-    return String(
-        value ?? ''
-    )
+        if (
+            token()
+        ) {
 
-        .replaceAll(
-            '&',
-            '&amp;'
-        )
+            showApp();
 
-        .replaceAll(
-            '<',
-            '&lt;'
-        )
+            showPage(
+                'dashboardPage'
+            );
 
-        .replaceAll(
-            '>',
-            '&gt;'
-        )
+            loadDashboard();
 
-        .replaceAll(
-            '"',
-            '&quot;'
-        )
+        }
 
-        .replaceAll(
-            "'",
-            '&#039;'
-        );
 
-}
+        $('loginForm')
+            .addEventListener(
+                'submit',
+                login
+            );
+
+
+        $('otpForm')
+            .addEventListener(
+                'submit',
+                verifyOtp
+            );
+
+
+        $('backToLogin')
+            .addEventListener(
+                'click',
+                showLogin
+            );
+
+
+        $('logoutBtn')
+            .addEventListener(
+                'click',
+                logout
+            );
+
+
+        $('settingsTopBtn')
+            .addEventListener(
+                'click',
+                () =>
+                    showPage(
+                        'settingsPage'
+                    )
+            );
+
+
+        $('productForm')
+            .addEventListener(
+                'submit',
+                addProduct
+            );
+
+
+        $('stockForm')
+            .addEventListener(
+                'submit',
+                stockIn
+            );
+
+
+        $('editForm')
+            .addEventListener(
+                'submit',
+                saveEdit
+            );
+
+
+        $('settingsForm')
+            .addEventListener(
+                'submit',
+                saveSettings
+            );
+
+
+        $('searchProducts')
+            .addEventListener(
+                'input',
+                event =>
+                    loadProducts(
+                        event.target.value
+                    )
+            );
+
+
+        $('refreshProducts')
+            .addEventListener(
+                'click',
+                () =>
+                    loadProducts(
+                        $('searchProducts')
+                            .value
+                    )
+            );
+
+
+        $('refreshAudit')
+            .addEventListener(
+                'click',
+                loadAuditLogs
+            );
+
+
+        $('auditFilter')
+            .addEventListener(
+                'change',
+                renderAudit
+            );
+
+
+        $('markReadBtn')
+            .addEventListener(
+                'click',
+                markRead
+            );
+
+
+        $('addProductTopBtn')
+            .addEventListener(
+                'click',
+                () =>
+                    showPage(
+                        'addPage'
+                    )
+            );
+
+
+        document
+            .querySelectorAll(
+                '.bottom-nav button'
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        'click',
+                        () =>
+                            showPage(
+                                button.dataset.page
+                            )
+                    );
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                '.backBtn'
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        'click',
+                        () =>
+                            showPage(
+                                button.dataset.target
+                            )
+                    );
+
+                }
+            );
+
+    }
+);
