@@ -1,582 +1,1141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Rose Bakeshop - Inventory Manager Login</title>
+    <meta charset="UTF-8">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    <meta
+        name="theme-color"
+        content="#8b3a3a"
+    >
 
-      font-family: Arial, Helvetica, sans-serif;
+    <title>
+        Rose Bakeshop Inventory
+    </title>
 
-      background: #fdf0eb;
-      color: #171717;
-    }
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    .login-card {
-      width: 430px;
-      max-width: calc(100% - 32px);
-
-      padding: 32px;
-
-      background: #ffffff;
-      border: 1px solid #ead9d2;
-      border-radius: 24px;
-
-      box-shadow: 0 10px 30px rgba(80, 40, 30, 0.08);
-    }
-
-    .logo {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .rose {
-      font-size: 42px;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-
-    .logo h1 {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-
-    .logo p {
-      color: #a07d75;
-      font-size: 17px;
-    }
-
-    .form-group {
-      margin-bottom: 0;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-
-      font-size: 13px;
-      font-weight: 700;
-      color: #111111;
-    }
-
-    input {
-      width: 100%;
-      height: 44px;
-
-      padding: 0 14px;
-
-      border: 1px solid #ead5ce;
-      border-radius: 10px;
-
-      background: #ffffff;
-      color: #171717;
-
-      font-size: 16px;
-      outline: none;
-
-      transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    input:focus {
-      border-color: #8d3033;
-      box-shadow: 0 0 0 3px rgba(141, 48, 51, 0.12);
-    }
-
-    input.autofilled {
-      background: #e5f0fc;
-    }
-
-    .password-wrapper {
-      position: relative;
-    }
-
-    .password-wrapper input {
-      padding-right: 45px;
-    }
-
-    .toggle-password {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-
-      border: none;
-      background: transparent;
-
-      cursor: pointer;
-      color: #777;
-
-      font-size: 17px;
-    }
-
-    .button {
-      width: 100%;
-      height: 41px;
-
-      margin-top: 8px;
-
-      border: none;
-      border-radius: 9px;
-
-      background: #812d30;
-      color: #ffffff;
-
-      font-size: 16px;
-      font-weight: 700;
-
-      cursor: pointer;
-
-      transition:
-        background 0.2s ease,
-        transform 0.1s ease;
-    }
-
-    .button:hover {
-      background: #702629;
-    }
-
-    .button:active {
-      transform: scale(0.99);
-    }
-
-    .button:disabled {
-      opacity: 0.65;
-      cursor: not-allowed;
-    }
-
-    .message {
-      display: none;
-
-      margin-top: 16px;
-      padding: 12px 14px;
-
-      border-radius: 8px;
-
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .message.success {
-      display: block;
-      background: #e8f7ed;
-      color: #216b38;
-      border: 1px solid #b9e5c5;
-    }
-
-    .message.error {
-      display: block;
-      background: #fdeaea;
-      color: #9b2828;
-      border: 1px solid #efbaba;
-    }
-
-    /* Verification section */
-    .verification {
-      display: none;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid #eee0db;
-    }
-
-    .verification.active {
-      display: block;
-    }
-
-    .verification p {
-      color: #745e59;
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-
-    .code-input {
-      text-align: center;
-      letter-spacing: 8px;
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    .verify-button {
-      margin-top: 12px;
-    }
-
-    @media (max-width: 500px) {
-      body {
-        padding: 16px;
-      }
-
-      .login-card {
-        padding: 25px 20px;
-        border-radius: 20px;
-      }
-
-      .logo h1 {
-        font-size: 23px;
-      }
-
-      .logo p {
-        font-size: 15px;
-      }
-    }
-  </style>
 </head>
+
 
 <body>
 
-  <main class="login-card">
 
-    <div class="logo">
-      <div class="rose" aria-label="Rose">🌹</div>
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
-      <h1>ROSE BAKESHOP</h1>
+<section
+    id="loginScreen"
+    class="screen login-screen"
+>
 
-      <p>Inventory Manager Login</p>
+    <div class="login-card">
+
+        <div class="brand-mark">
+            🌹
+        </div>
+
+        <h1>
+            ROSE BAKESHOP
+        </h1>
+
+        <p class="subtitle">
+            Inventory Manager Login
+        </p>
+
+
+        <!-- LOGIN STEP -->
+
+        <div
+            id="loginStep"
+            class="auth-step"
+        >
+
+            <form id="loginForm">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    id="username"
+                    type="text"
+                    autocomplete="username"
+                    placeholder="Enter username"
+                    required
+                >
+
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="Enter password"
+                    required
+                >
+
+
+                <label for="email">
+                    Gmail
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="example@gmail.com"
+                    required
+                >
+
+
+                <button
+                    class="primary-btn"
+                    type="submit"
+                >
+                    Continue to Verification
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- OTP STEP -->
+
+        <div
+            id="otpStep"
+            class="auth-step hidden"
+        >
+
+            <div class="otp-icon">
+                ✉️
+            </div>
+
+            <h2>
+                Verify your Gmail
+            </h2>
+
+            <p id="otpMessage">
+                A 6-digit OTP was sent to your Gmail.
+            </p>
+
+
+            <form id="otpForm">
+
+                <label for="otp">
+                    One-Time Password
+                </label>
+
+                <input
+                    id="otp"
+                    inputmode="numeric"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    placeholder="000000"
+                    required
+                >
+
+
+                <button
+                    class="primary-btn"
+                    type="submit"
+                >
+                    Verify & Login
+                </button>
+
+            </form>
+
+
+            <button
+                id="backToLogin"
+                class="link-btn"
+                type="button"
+            >
+                Back to login
+            </button>
+
+
+            <div
+                id="otpAttempts"
+                class="attempts"
+            >
+                5 OTP attempts available
+            </div>
+
+        </div>
+
     </div>
 
-    <form id="loginForm">
+</section>
 
-      <div class="form-group">
-        <label for="username">Username</label>
 
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value="inventorymanager"
-          autocomplete="username"
-          required
-        />
-      </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
 
-        <div class="password-wrapper">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value="inventory123"
-            autocomplete="current-password"
-            required
-          />
+<section
+    id="appScreen"
+    class="hidden"
+>
 
-          <button
-            type="button"
-            class="toggle-password"
-            id="togglePassword"
-            aria-label="Show password"
-          >
-            👁
-          </button>
+
+<header class="top-header">
+
+    <div class="brand">
+
+        <span>
+            🌹
+        </span>
+
+        <div>
+
+            <strong>
+                Rose Bakeshop
+            </strong>
+
+            <small>
+                Inventory Management System
+            </small>
+
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="gmail">Gmail</label>
+    </div>
 
-        <input
-          type="email"
-          id="gmail"
-          name="gmail"
-          value="maestradorafa4@gmail.com"
-          autocomplete="email"
-          required
-        />
-      </div>
 
-      <button
-        type="submit"
-        class="button"
-        id="continueButton"
-      >
-        Continue to Verification
-      </button>
+    <div class="header-buttons">
 
-    </form>
+        <button
+            id="settingsTopBtn"
+            class="header-btn"
+        >
+            ⚙ Settings
+        </button>
 
-    <div id="message" class="message"></div>
+
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="main-container">
+
+
+    <div class="page-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                INVENTORY MANAGER
+            </p>
+
+            <h1 id="pageTitle">
+                Dashboard
+            </h1>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         DASHBOARD
+    ================================================= -->
 
     <section
-      class="verification"
-      id="verificationSection"
+        id="dashboardPage"
+        class="page"
     >
-      <p>
-        Enter the 6-digit verification code to continue.
-      </p>
 
-      <input
-        type="text"
-        id="verificationCode"
-        class="code-input"
-        maxlength="6"
-        inputmode="numeric"
-        autocomplete="one-time-code"
-        placeholder="••••••"
-      />
+        <div class="dashboard-grid">
 
-      <button
-        type="button"
-        class="button verify-button"
-        id="verifyButton"
-      >
-        Verify & Continue
-      </button>
+            <div class="stat-card">
+                <span>Total Products</span>
+                <strong id="totalProducts">
+                    0
+                </strong>
+            </div>
+
+
+            <div class="stat-card">
+                <span>Total Items</span>
+                <strong id="totalItems">
+                    0
+                </strong>
+            </div>
+
+
+            <div class="stat-card">
+                <span>Low Stock</span>
+                <strong id="lowStock">
+                    0
+                </strong>
+            </div>
+
+
+            <div class="stat-card">
+                <span>Out of Stock</span>
+                <strong id="outOfStock">
+                    0
+                </strong>
+            </div>
+
+
+            <div class="stat-card wide">
+
+                <span>
+                    Inventory Value
+                </span>
+
+                <strong id="inventoryValue">
+                    ₱0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="section-card">
+
+            <div class="section-head">
+
+                <h2>
+                    Inventory Notifications
+                </h2>
+
+                <button
+                    id="markReadBtn"
+                    class="secondary-btn"
+                >
+                    Mark all read
+                </button>
+
+            </div>
+
+
+            <div
+                id="dashboardNotifications"
+                class="notification-list"
+            ></div>
+
+        </div>
+
     </section>
 
-  </main>
-
-  <script>
-    "use strict";
-
-    const loginForm = document.getElementById("loginForm");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
-    const gmailInput = document.getElementById("gmail");
-
-    const togglePassword =
-      document.getElementById("togglePassword");
-
-    const continueButton =
-      document.getElementById("continueButton");
-
-    const message =
-      document.getElementById("message");
-
-    const verificationSection =
-      document.getElementById("verificationSection");
-
-    const verificationCode =
-      document.getElementById("verificationCode");
-
-    const verifyButton =
-      document.getElementById("verifyButton");
 
 
-    /*
-     * Show / hide password
-     */
-    togglePassword.addEventListener("click", () => {
-      const isPassword =
-        passwordInput.type === "password";
+    <!-- =================================================
+         PRODUCTS
+    ================================================= -->
 
-      passwordInput.type =
-        isPassword ? "text" : "password";
+    <section
+        id="productsPage"
+        class="page hidden"
+    >
 
-      togglePassword.textContent =
-        isPassword ? "🙈" : "👁";
+        <div class="toolbar">
 
-      togglePassword.setAttribute(
-        "aria-label",
-        isPassword
-          ? "Hide password"
-          : "Show password"
-      );
-    });
+            <input
+                id="searchProducts"
+                type="search"
+                placeholder="Search products..."
+            >
 
 
-    /*
-     * Display a message
-     */
-    function showMessage(text, type) {
-      message.textContent = text;
-
-      message.className =
-        "message " + type;
-    }
+            <button
+                id="refreshProducts"
+                class="secondary-btn"
+            >
+                Refresh
+            </button>
 
 
-    /*
-     * Clear message
-     */
-    function clearMessage() {
-      message.textContent = "";
-      message.className = "message";
-    }
+            <button
+                id="addProductTopBtn"
+                class="primary-btn small"
+            >
+                + Add Product
+            </button>
+
+        </div>
 
 
-    /*
-     * Login / verification request
-     *
-     * This version does NOT call a missing API endpoint.
-     * That prevents the "Request failed." error shown
-     * in the screenshot.
-     */
-    loginForm.addEventListener("submit", (event) => {
-      event.preventDefault();
+        <div
+            id="productList"
+            class="product-list"
+        ></div>
 
-      clearMessage();
-
-      const username =
-        usernameInput.value.trim();
-
-      const password =
-        passwordInput.value;
-
-      const gmail =
-        gmailInput.value.trim();
+    </section>
 
 
-      /*
-       * Basic validation
-       */
-      if (!username) {
-        showMessage(
-          "Please enter your username.",
-          "error"
-        );
 
-        usernameInput.focus();
-        return;
-      }
+    <!-- =================================================
+         ADD PRODUCT
+    ================================================= -->
 
-      if (!password) {
-        showMessage(
-          "Please enter your password.",
-          "error"
-        );
+    <section
+        id="addPage"
+        class="page hidden"
+    >
 
-        passwordInput.focus();
-        return;
-      }
+        <div class="form-card">
 
-      if (!gmail) {
-        showMessage(
-          "Please enter your Gmail address.",
-          "error"
-        );
+            <div class="section-head">
 
-        gmailInput.focus();
-        return;
-      }
+                <h2>
+                    Add Product
+                </h2>
 
-      if (!gmailInput.checkValidity()) {
-        showMessage(
-          "Please enter a valid Gmail address.",
-          "error"
-        );
+                <button
+                    class="secondary-btn backBtn"
+                    data-target="productsPage"
+                >
+                    Back
+                </button>
 
-        gmailInput.focus();
-        return;
-      }
+            </div>
 
 
-      /*
-       * Disable button while processing
-       */
-      continueButton.disabled = true;
-      continueButton.textContent = "Processing...";
+            <form
+                id="productForm"
+                class="form-grid"
+            >
+
+                <label>
+                    Product Name
+
+                    <input
+                        id="productName"
+                        required
+                    >
+                </label>
 
 
-      /*
-       * Simulate verification request.
-       *
-       * Replace this section with your real backend
-       * request when your API is available.
-       */
-      setTimeout(() => {
+                <label>
+                    Category
 
-        continueButton.disabled = false;
-        continueButton.textContent =
-          "Continue to Verification";
+                    <select
+                        id="category"
+                        required
+                    >
 
-        verificationSection.classList.add("active");
+                        <option value="">
+                            Select category
+                        </option>
 
-        showMessage(
-          "Verification code sent. Enter the code to continue.",
-          "success"
-        );
+                        <option>
+                            bread
+                        </option>
 
-        verificationCode.focus();
+                        <option>
+                            pastry
+                        </option>
 
-      }, 700);
-    });
+                        <option>
+                            cake
+                        </option>
+
+                        <option>
+                            cookie
+                        </option>
+
+                        <option>
+                            beverage
+                        </option>
+
+                        <option>
+                            ingredient
+                        </option>
+
+                        <option>
+                            other
+                        </option>
+
+                    </select>
+
+                </label>
 
 
-    /*
-     * Only allow numbers in verification code
-     */
-    verificationCode.addEventListener(
-      "input",
-      () => {
+                <label>
+                    Unit
 
-        verificationCode.value =
-          verificationCode.value
-            .replace(/\D/g, "")
-            .slice(0, 6);
+                    <select
+                        id="unit"
+                        required
+                    >
 
-      }
-    );
+                        <option value="pcs">
+                            pcs
+                        </option>
+
+                        <option value="box">
+                            box
+                        </option>
+
+                        <option value="pack">
+                            pack
+                        </option>
+
+                        <option value="tray">
+                            tray
+                        </option>
+
+                    </select>
+
+                </label>
 
 
-    /*
-     * Verify code
-     *
-     * Demo code: 123456
-     *
-     * Replace this with your backend verification
-     * when the real API is connected.
-     */
-    verifyButton.addEventListener(
-      "click",
-      () => {
+                <label>
+                    Cost Price
 
-        clearMessage();
+                    <input
+                        id="costPrice"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                    >
 
-        const code =
-          verificationCode.value.trim();
+                </label>
 
-        if (code.length !== 6) {
-          showMessage(
-            "Please enter the 6-digit verification code.",
-            "error"
-          );
 
-          verificationCode.focus();
-          return;
-        }
+                <label>
+                    Selling Price
 
-        if (code !== "123456") {
-          showMessage(
-            "Invalid verification code.",
-            "error"
-          );
+                    <input
+                        id="sellingPrice"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                    >
 
-          verificationCode.focus();
-          return;
-        }
+                </label>
 
-        showMessage(
-          "Verification successful. Welcome to Rose Bakeshop!",
-          "success"
-        );
 
-        /*
-         * Redirect to the inventory dashboard here.
-         *
-         * Example:
-         *
-         * window.location.href = "dashboard.html";
-         */
-      }
-    );
-  </script>
+                <label>
+                    Initial Stock
+
+                    <input
+                        id="initialStock"
+                        type="number"
+                        min="0"
+                        step="1"
+                        value="0"
+                    >
+
+                </label>
+
+
+                <label>
+                    Reorder Level
+
+                    <input
+                        id="reorderLevel"
+                        type="number"
+                        min="0"
+                        step="1"
+                        value="20"
+                    >
+
+                </label>
+
+
+                <div class="form-actions">
+
+                    <button
+                        class="primary-btn"
+                        type="submit"
+                    >
+                        Save Product
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STOCK IN
+    ================================================= -->
+
+    <section
+        id="stockPage"
+        class="page hidden"
+    >
+
+        <div class="form-card">
+
+            <div class="section-head">
+
+                <h2>
+                    Stock In
+                </h2>
+
+                <button
+                    class="secondary-btn backBtn"
+                    data-target="productsPage"
+                >
+                    Back
+                </button>
+
+            </div>
+
+
+            <form
+                id="stockForm"
+                class="form-grid"
+            >
+
+                <label>
+                    Product
+
+                    <select
+                        id="stockProduct"
+                        required
+                    ></select>
+
+                </label>
+
+
+                <label>
+                    Quantity to Add
+
+                    <input
+                        id="stockAmount"
+                        type="number"
+                        min="1"
+                        step="1"
+                        required
+                        placeholder="Enter quantity"
+                    >
+
+                </label>
+
+
+                <div class="form-actions">
+
+                    <button
+                        class="primary-btn"
+                        type="submit"
+                    >
+                        Confirm Stock In
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         EDIT PRODUCT
+    ================================================= -->
+
+    <section
+        id="editPage"
+        class="page hidden"
+    >
+
+        <div class="form-card">
+
+            <div class="section-head">
+
+                <h2>
+                    Edit Product
+                </h2>
+
+                <button
+                    class="secondary-btn backBtn"
+                    data-target="productsPage"
+                >
+                    Back
+                </button>
+
+            </div>
+
+
+            <form
+                id="editForm"
+                class="form-grid"
+            >
+
+                <input
+                    id="editId"
+                    type="hidden"
+                >
+
+
+                <label>
+                    Product Name
+
+                    <input
+                        id="editProductName"
+                        required
+                    >
+
+                </label>
+
+
+                <label>
+                    Category
+
+                    <select
+                        id="editCategory"
+                        required
+                    >
+
+                        <option>
+                            bread
+                        </option>
+
+                        <option>
+                            pastry
+                        </option>
+
+                        <option>
+                            cake
+                        </option>
+
+                        <option>
+                            cookie
+                        </option>
+
+                        <option>
+                            beverage
+                        </option>
+
+                        <option>
+                            ingredient
+                        </option>
+
+                        <option>
+                            other
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Unit
+
+                    <select id="editUnit">
+
+                        <option>
+                            pcs
+                        </option>
+
+                        <option>
+                            kg
+                        </option>
+
+                        <option>
+                            g
+                        </option>
+
+                        <option>
+                            box
+                        </option>
+
+                        <option>
+                            pack
+                        </option>
+
+                        <option>
+                            tray
+                        </option>
+
+                        <option>
+                            bottle
+                        </option>
+
+                        <option>
+                            liter
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Cost Price
+
+                    <input
+                        id="editCostPrice"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </label>
+
+
+                <label>
+                    Selling Price
+
+                    <input
+                        id="editSellingPrice"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </label>
+
+
+                <label>
+                    Quantity
+
+                    <input
+                        id="editQuantity"
+                        type="number"
+                        min="0"
+                        step="1"
+                    >
+
+                </label>
+
+
+                <label>
+                    Reorder Level
+
+                    <input
+                        id="editReorderLevel"
+                        type="number"
+                        min="0"
+                        step="1"
+                    >
+
+                </label>
+
+
+                <div class="form-actions">
+
+                    <button
+                        class="primary-btn"
+                        type="submit"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SETTINGS
+    ================================================= -->
+
+    <section
+        id="settingsPage"
+        class="page hidden"
+    >
+
+        <div class="settings-grid">
+
+
+            <div class="form-card">
+
+                <div class="section-head">
+
+                    <h2>
+                        System Settings
+                    </h2>
+
+                </div>
+
+
+                <div class="authorization-box">
+
+                    <strong>
+                        Authorization Required
+                    </strong>
+
+                    <p>
+                        Configuration changes require the Inventory Manager's current password.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="settingsForm"
+                    class="form-grid"
+                >
+
+                    <label>
+                        Reorder Level
+
+                        <input
+                            id="settingsReorder"
+                            type="number"
+                            min="0"
+                            max="100"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label>
+                        Low Stock Threshold
+
+                        <input
+                            id="settingsLow"
+                            type="number"
+                            min="0"
+                            max="100000"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label>
+                        Default Unit
+
+                        <select id="settingsUnit">
+
+                            <option>
+                                pcs
+                            </option>
+
+                            <option>
+                                kg
+                            </option>
+
+                            <option>
+                                g
+                            </option>
+
+                            <option>
+                                box
+                            </option>
+
+                            <option>
+                                pack
+                            </option>
+
+                            <option>
+                                tray
+                            </option>
+
+                            <option>
+                                bottle
+                            </option>
+
+                            <option>
+                                liter
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        Current Password
+
+                        <input
+                            id="currentPassword"
+                            type="password"
+                            required
+                            placeholder="Re-enter password to authorize"
+                        >
+
+                    </label>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            class="primary-btn"
+                            type="submit"
+                        >
+                            Save Settings
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- AUDIT LOGS -->
+
+            <div class="section-card audit-card">
+
+                <div class="section-head">
+
+                    <h2>
+                        Audit Logs
+                    </h2>
+
+                    <button
+                        id="refreshAudit"
+                        class="secondary-btn"
+                    >
+                        Refresh
+                    </button>
+
+                </div>
+
+
+                <div class="audit-filter">
+
+                    <select id="auditFilter">
+
+                        <option value="ALL">
+                            All Activities
+                        </option>
+
+                        <option value="LOGIN">
+                            Login
+                        </option>
+
+                        <option value="LOGOUT">
+                            Logout
+                        </option>
+
+                        <option value="PRODUCT_ADDED">
+                            Add Product
+                        </option>
+
+                        <option value="PRODUCT_UPDATED">
+                            Edit Product
+                        </option>
+
+                        <option value="STOCK_IN">
+                            Stock In
+                        </option>
+
+                        <option value="PRODUCT_DELETED">
+                            Delete Product
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="auditList"
+                    class="audit-list"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <button
+        data-page="dashboardPage"
+    >
+        ⌂
+        <span>
+            Home
+        </span>
+    </button>
+
+
+    <button
+        data-page="productsPage"
+    >
+        ▣
+        <span>
+            Products
+        </span>
+    </button>
+
+
+    <button
+        data-page="addPage"
+    >
+        ＋
+        <span>
+            Add
+        </span>
+    </button>
+
+
+    <button
+        data-page="settingsPage"
+    >
+        ⚙
+        <span>
+            Settings
+        </span>
+    </button>
+
+</nav>
+
+</section>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
